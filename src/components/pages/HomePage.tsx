@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Image } from '@/components/ui/image';
 
 export default function HomePage() {
   const scrollToSection = (id: string) => {
@@ -220,29 +221,45 @@ export default function HomePage() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="max-w-3xl space-y-8"
+          className="grid md:grid-cols-2 gap-12 items-center"
         >
-          <div className="space-y-2">
-            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Обо мне</p>
-            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
-              Я не гуру. Я проводник.
-            </h2>
+          <div className="space-y-8">
+            <div className="space-y-2">
+              <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Обо мне</p>
+              <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+                Я не гуру. Я проводник.
+              </h2>
+            </div>
+
+            <div className="space-y-6 font-paragraph text-lg leading-relaxed text-[#C9D6B9]">
+              <p>
+                Я прошёл собственную глубокую трансформацию. Знаю, что такое потеря опоры, смена идентичности и ощущение, что жизнь разваливается.
+              </p>
+              <p>
+                Работаю как коуч и психолог. Не даю мотивацию — помогаю вернуть ясность и опору. Помогаю людям услышать собственный голос, а не голос общества, родителей или собственного страха.
+              </p>
+              <p>
+                Мой опыт — это мой инструмент. Моя честность — это моё обещание.
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-6 font-paragraph text-lg leading-relaxed text-[#C9D6B9]">
-            <p>
-              Я прошёл собственную глубокую трансформацию. Знаю, что такое потеря опоры, смена идентичности и ощущение, что жизнь разваливается.
-            </p>
-            <p>
-              Работаю как коуч и психолог. Не даю мотивацию — помогаю вернуть ясность и опору. Помогаю людям услышать собственный голос, а не голос общества, родителей или собственного страха.
-            </p>
-            <p>
-              Мой опыт — это мой инструмент. Моя честность — это моё обещание.
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="flex justify-center"
+          >
+            <Image
+              src="https://static.wixstatic.com/media/3fbe1a_33c75b6240df40f69d76597ae381246b~mv2.png?originWidth=384&originHeight=576"
+              alt="Professional portrait of the coach"
+              width={400}
+              className="rounded-lg shadow-lg"
+            />
+          </motion.div>
         </motion.div>
       </section>
-      {/* How to Start Section */}
       <section id="start" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
         <motion.div
           initial={{ opacity: 0 }}
