@@ -1,317 +1,334 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Image } from '@/components/ui/image';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Check } from 'lucide-react';
-
-const NoiseOverlay = () => (
-  <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.03] mix-blend-overlay">
-    <svg className="h-full w-full">
-      <filter id="noise">
-        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-      </filter>
-      <rect width="100%" height="100%" filter="url(#noise)" />
-    </svg>
-  </div>
-);
+import { ArrowRight } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-primary text-textbody font-paragraph selection:bg-secondary selection:text-white overflow-clip relative">
-      <NoiseOverlay />
-
-      {/* --- HERO SECTION --- */}
-      <section className="relative w-full min-h-[95vh] flex items-center justify-center px-6 md:px-12 py-20 border-b border-bordersubtle/30">
-        <div className="max-w-[100rem] mx-auto w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-center"
-          >
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl leading-[1.1] text-primary-foreground mb-8 tracking-tight">
-              Ты не сломан.
-              <br />
-              <span className="text-secondary">Ты просто живёшь не свою жизнь.</span>
+    <div className="bg-[#0F0F12] text-[#EDEDED] min-h-screen">
+      {/* Hero Section */}
+      <section className="w-full max-w-[120rem] mx-auto px-6 py-24 md:py-32 lg:py-40">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="space-y-8"
+        >
+          {/* Main Headline */}
+          <div className="space-y-4">
+            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight">
+              ТЫ НЕ СЛОМАН.
             </h1>
-
-            <p className="font-paragraph text-lg md:text-xl text-textbody/85 max-w-3xl mx-auto leading-relaxed mb-12">
-              Коучинг и психологическое сопровождение для тех, кто устал прятаться, сомневаться и жить на паузе — и готов вернуться к себе по-настоящему.
-            </p>
-
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button className="bg-buttonbackground text-buttonforeground hover:bg-buttonbackground/90 h-14 px-8 rounded-none text-lg font-heading tracking-wide transition-all duration-300 hover:pr-10 group">
-                Записаться на консультацию
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* --- THE PROBLEM SECTION --- */}
-      <section className="w-full max-w-[100rem] mx-auto px-6 md:px-12 py-24 md:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-heading text-4xl md:text-6xl text-primary-foreground mb-8">
-            Ты узнаёшь себя в этом?
-          </h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-          {[
-            "Ты много понимаешь, но мало меняешь",
-            "Ты чувствуешь потенциал, но не реализуешь его",
-            "Ты живёшь «правильно», но без ощущения жизни",
-            "Ты боишься сделать шаг — и ненавидишь себя за это"
-          ].map((problem, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="bg-white/5 border border-white/10 p-8 md:p-10 hover:bg-white/8 transition-colors duration-500"
-            >
-              <p className="font-paragraph text-lg md:text-xl text-textbody/90 leading-relaxed">
-                {problem}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- THE TURNING POINT --- */}
-      <section className="w-full bg-[#263326] py-24 md:py-32 border-y border-bordersubtle/20">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h2 className="font-heading text-4xl md:text-6xl text-primary-foreground mb-8">
-              В чём настоящая проблема?
-            </h2>
-            <div className="max-w-3xl mx-auto">
-              <p className="font-paragraph text-lg text-textbody/85 mb-6 leading-relaxed">
-                Проблема не в лени, не в дисциплине и не в знаниях.
-              </p>
-              <p className="font-heading text-2xl md:text-3xl text-secondary leading-relaxed">
-                Проблема — в разрыве между тем, кто ты есть, и тем, кем ты живёшь.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* --- ABOUT MY APPROACH --- */}
-      <section className="w-full max-w-[100rem] mx-auto px-6 md:px-12 py-24 md:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
-          <h2 className="font-heading text-4xl md:text-6xl text-primary-foreground mb-4">
-            Как я работаю
-          </h2>
-          <p className="text-textlight/70 text-lg">
-            Четыре принципа, которые лежат в основе каждой сессии
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {[
-            { title: "Честный разговор без масок", desc: "Без позёрства, без фильтров. Только правда о том, что происходит." },
-            { title: "Работа с убеждениями и страхами", desc: "Мы находим те внутренние роли и ограничения, которые держат тебя в клетке." },
-            { title: "Соединение разума, эмоций и инстинкта", desc: "Не только думаешь — чувствуешь и действуешь. Целостный подход." },
-            { title: "Ясность → Решение → Действие", desc: "Не бесконечный анализ. Мы движемся вперёд, даже если не всё ясно." }
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="border-l-2 border-secondary pl-8"
-            >
-              <h3 className="font-heading text-2xl text-primary-foreground mb-4">
-                {item.title}
-              </h3>
-              <p className="font-paragraph text-textbody/80 leading-relaxed">
-                {item.desc}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- ABOUT ME --- */}
-      <section className="w-full bg-white/3 py-24 md:py-32 border-y border-bordersubtle/20">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="font-heading text-4xl md:text-5xl text-primary-foreground mb-8">
-                Кто я и почему я это делаю
-              </h2>
-              <div className="space-y-6">
-                <p className="font-paragraph text-lg text-textbody/85 leading-relaxed">
-                  Я прошёл собственную глубокую трансформацию. Знаю, что такое страх, потеря опоры и смена идентичности.
-                </p>
-                <p className="font-paragraph text-lg text-textbody/85 leading-relaxed">
-                  Работаю как коуч и психолог. Не даю мотивацию — помогаю вернуться к себе. Помогаю людям разобраться в себе, найти свой путь и начать жить по-настоящему.
-                </p>
-                <p className="font-paragraph text-lg text-textbody/85 leading-relaxed">
-                  Я верю, что каждый человек уже знает, что ему нужно. Моя задача — помочь услышать этот голос.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative h-96 rounded-sm overflow-hidden"
-            >
-              <Image
-                src="https://static.wixstatic.com/media/3fbe1a_7609d62a16fd4d519dfd0c6eb2a8ec5a~mv2.png?originWidth=512&originHeight=384"
-                alt="Трансформационный коуч"
-                className="w-full h-full object-cover opacity-90"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent" />
-            </motion.div>
+            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight text-[#C2B280]">
+              ТЫ ПРОСТО ЖИВЁШЬ НЕ СВОЮ ЖИЗНЬ.
+            </h1>
           </div>
-        </div>
-      </section>
 
-      {/* --- WHAT YOU GET --- */}
-      <section className="w-full max-w-[100rem] mx-auto px-6 md:px-12 py-24 md:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
-          <h2 className="font-heading text-4xl md:text-6xl text-primary-foreground mb-4">
-            Что ты получишь
-          </h2>
-          <p className="text-textlight/70 text-lg">
-            Реальные результаты, которые меняют жизнь
+          {/* Subheadline */}
+          <p className="font-paragraph text-lg md:text-xl leading-relaxed max-w-3xl text-[#EDEDED] opacity-90">
+            Коучинг и психологическое сопровождение для тех, кто устал прятаться, сомневаться и жить на паузе — и готов вернуться к себе по-настоящему.
+          </p>
+
+          {/* CTA Button */}
+          <div className="pt-6">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => scrollToSection('contact')}
+              className="bg-[#C2B280] text-[#0F0F12] px-8 py-4 font-paragraph font-semibold text-lg rounded-lg hover:bg-[#D4C4A0] transition-colors flex items-center gap-3 group"
+            >
+              Начать с разговора
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </div>
+
+          {/* Trust Line */}
+          <p className="font-paragraph text-sm md:text-base text-[#C9D6B9] max-w-2xl pt-4">
+            Без давления. Без обязательств. Первая встреча — чтобы понять, есть ли смысл идти дальше.
           </p>
         </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {[
-            "Внутренняя ясность — понимание того, кто ты на самом деле",
-            "Чувство опоры — стабильность и уверенность в себе",
-            "Честное понимание себя — без иллюзий и масок",
-            "Способность принимать решения — даже в неопределённости",
-            "Выход из застоя — движение вперёд, несмотря на страхи",
-            "Возвращение к себе — жизнь, которая действительно твоя"
-          ].map((outcome, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.6 }}
-              className="flex items-start gap-4"
-            >
-              <div className="flex-shrink-0 mt-1">
-                <Check className="w-6 h-6 text-secondary" />
-              </div>
-              <p className="font-paragraph text-lg text-textbody/85 leading-relaxed">
-                {outcome}
-              </p>
-            </motion.div>
-          ))}
-        </div>
       </section>
 
-      {/* --- HOW TO START --- */}
-      <section className="w-full bg-[#263326] py-24 md:py-32 border-y border-bordersubtle/20">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-16"
-          >
-            <h2 className="font-heading text-4xl md:text-6xl text-primary-foreground mb-4">
-              Как начать
+      {/* Problem Recognition Section */}
+      <section id="problems" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="space-y-12"
+        >
+          <div className="space-y-2">
+            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Узнаёшь себя?</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Ты живёшь, но не чувствуешь жизни
             </h2>
-            <p className="text-textlight/70 text-lg">
-              Три простых шага к переменам
-            </p>
-          </motion.div>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
             {[
-              { step: "1", title: "Оставить заявку", desc: "Расскажи немного о себе и о том, что тебя привело сюда." },
-              { step: "2", title: "Первая консультация", desc: "Мы встречаемся, говорим честно, разбираемся в ситуации." },
-              { step: "3", title: "Решение вместе", desc: "Ты поймёшь — работаем мы дальше или нет. Никакого давления." }
-            ].map((item, i) => (
+              'Ты многое понимаешь, но почти ничего не меняешь',
+              'Ты чувствуешь потенциал, но живёшь вполсилы',
+              'Ты знаешь, что можешь больше — и злишься на себя за бездействие',
+              'Ты живёшь "правильно", но не чувствуешь жизни',
+            ].map((statement, index) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-                className="bg-white/5 border border-white/10 p-8 md:p-10 text-center hover:bg-white/8 transition-colors duration-500"
+                className="border-l-2 border-[#C2B280] pl-6 py-4"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-secondary text-secondary font-heading text-xl mb-6">
-                  {item.step}
-                </div>
-                <h3 className="font-heading text-2xl text-primary-foreground mb-4">
-                  {item.title}
-                </h3>
-                <p className="font-paragraph text-textbody/80 leading-relaxed">
-                  {item.desc}
+                <p className="font-paragraph text-lg leading-relaxed">
+                  {statement}
                 </p>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* --- FINAL CTA SECTION --- */}
-      <section className="w-full max-w-[100rem] mx-auto px-6 md:px-12 py-24 md:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h2 className="font-heading text-4xl md:text-6xl text-primary-foreground mb-8">
-            Если ты читаешь это — значит, что-то внутри тебя уже готово к переменам.
-          </h2>
-          <p className="font-paragraph text-lg text-textbody/85 max-w-2xl mx-auto leading-relaxed mb-12">
-            Первый шаг — это всегда самый сложный. Но ты уже здесь. Это уже что-то.
-          </p>
-          <Button className="bg-buttonbackground text-buttonforeground hover:bg-buttonbackground/90 h-14 px-8 rounded-none text-lg font-heading tracking-wide transition-all duration-300 hover:pr-10 group">
-            Начать с консультации
-            <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Button>
         </motion.div>
       </section>
 
+      {/* Reframe / Turning Point Section */}
+      <section id="reframe" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-3xl space-y-8"
+        >
+          <div className="space-y-6">
+            <p className="font-paragraph text-base uppercase tracking-widest text-[#C2B280]">Суть проблемы</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Проблема не в дисциплине, не в мотивации и не в знаниях.
+            </h2>
+            <p className="font-heading text-3xl md:text-4xl leading-tight text-[#C2B280]">
+              Проблема — в разрыве между тем, кто ты есть, и тем, кем ты живёшь.
+            </p>
+          </div>
+
+          <p className="font-paragraph text-lg leading-relaxed text-[#C9D6B9] pt-6">
+            Когда внутри тебя живёт один человек, а снаружи ты играешь роль другого — энергия уходит на поддержание маски. Остаётся усталость, сомнение и ощущение, что жизнь проходит мимо.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* How I Work Section */}
+      <section id="approach" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="space-y-12"
+        >
+          <div className="space-y-2">
+            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Мой подход</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Как я работаю
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+            {[
+              {
+                title: 'Честный разговор без масок',
+                description: 'Я не даю советы и не учу. Я слушаю и задаю вопросы, которые помогают тебе увидеть то, что ты уже знаешь, но не осознаёшь.'
+              },
+              {
+                title: 'Работа со страхами и убеждениями',
+                description: 'Мы разбираемся, какие роли ты играешь, какие убеждения тебя держат, и откуда они взялись.'
+              },
+              {
+                title: 'Соединение разума, эмоций и инстинкта',
+                description: 'Решения, которые работают, — это те, которые согласованы со всеми частями тебя.'
+              },
+              {
+                title: 'Ясность → решение → действие',
+                description: 'Мы не зависаем на анализе. Когда ясность появляется, мы переходим к конкретным шагам.'
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="space-y-4"
+              >
+                <h3 className="font-heading text-xl md:text-2xl text-[#C2B280]">
+                  {item.title}
+                </h3>
+                <p className="font-paragraph text-base leading-relaxed text-[#C9D6B9]">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* About Me Section */}
+      <section id="about" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-3xl space-y-8"
+        >
+          <div className="space-y-2">
+            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Обо мне</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Я не гуру. Я проводник.
+            </h2>
+          </div>
+
+          <div className="space-y-6 font-paragraph text-lg leading-relaxed text-[#C9D6B9]">
+            <p>
+              Я прошёл собственную глубокую трансформацию. Знаю, что такое потеря опоры, смена идентичности и ощущение, что жизнь разваливается.
+            </p>
+            <p>
+              Работаю как коуч и психолог. Не даю мотивацию — помогаю вернуть ясность и опору. Помогаю людям услышать собственный голос, а не голос общества, родителей или собственного страха.
+            </p>
+            <p>
+              Мой опыт — это мой инструмент. Моя честность — это моё обещание.
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* What You Gain Section */}
+      <section id="results" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="space-y-12"
+        >
+          <div className="space-y-2">
+            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Результаты</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Что ты получишь
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              'Внутренняя ясность',
+              'Чувство опоры',
+              'Честное понимание себя',
+              'Способность принимать решения',
+              'Выход из застоя',
+              'Возвращение к себе',
+            ].map((result, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="bg-[#1A1A1F] p-6 rounded-lg border border-[#5A6A4A]"
+              >
+                <p className="font-paragraph text-lg font-semibold text-[#C2B280]">
+                  {result}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* How to Start Section */}
+      <section id="start" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-3xl space-y-12"
+        >
+          <div className="space-y-2">
+            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Начало пути</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Как начать
+            </h2>
+          </div>
+
+          <div className="space-y-8">
+            {[
+              { step: '01', title: 'Оставить заявку', description: 'Расскажи немного о себе и о том, что тебя привело сюда.' },
+              { step: '02', title: 'Провести первую встречу', description: 'Мы поговорим без обязательств. Я слушаю, ты рассказываешь.' },
+              { step: '03', title: 'Понять, подходим ли мы друг другу', description: 'Честный разговор о том, могу ли я помочь и готов ли ты работать.' },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="flex gap-6"
+              >
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#C2B280] text-[#0F0F12] font-heading font-bold">
+                    {item.step}
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-heading text-xl md:text-2xl text-[#EDEDED] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="font-paragraph text-base leading-relaxed text-[#C9D6B9]">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section id="contact" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="space-y-8 text-center"
+        >
+          <p className="font-paragraph text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-[#C9D6B9]">
+            Если ты читаешь это — значит, внутри тебя уже есть готовность к переменам.
+          </p>
+
+          <p className="font-paragraph text-base text-[#C2B280]">
+            Остаётся только первый шаг.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => scrollToSection('contact')}
+            className="bg-[#C2B280] text-[#0F0F12] px-8 py-4 font-paragraph font-semibold text-lg rounded-lg hover:bg-[#D4C4A0] transition-colors flex items-center gap-3 group mx-auto"
+          >
+            Начать с разговора
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </motion.button>
+
+          <p className="font-paragraph text-sm text-[#C9D6B9] pt-4">
+            Без давления. Без обязательств.
+          </p>
+        </motion.div>
+      </section>
     </div>
   );
 }

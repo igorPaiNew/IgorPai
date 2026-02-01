@@ -19,8 +19,8 @@ export default {
                 '9xl': ['8rem', { lineHeight: '1', letterSpacing: '0.07em', fontWeight: '900' }],
             },
             fontFamily: {
-                heading: "marcellus",
-                paragraph: "open sans"
+                heading: "Manrope, Inter Tight, sans-serif",
+                paragraph: "Inter, sans-serif"
             },
             colors: {
                 buttonbackground: '#8A9A5B',
