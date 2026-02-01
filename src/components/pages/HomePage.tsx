@@ -55,7 +55,6 @@ export default function HomePage() {
           </p>
         </motion.div>
       </section>
-
       {/* Problem Recognition Section */}
       <section id="problems" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
         <motion.div
@@ -95,7 +94,6 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
-
       {/* Reframe / Turning Point Section */}
       <section id="reframe" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
         <motion.div
@@ -120,7 +118,6 @@ export default function HomePage() {
           </p>
         </motion.div>
       </section>
-
       {/* How I Work Section */}
       <section id="approach" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
         <motion.div
@@ -175,37 +172,7 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
-
       {/* About Me Section */}
-      <section id="about" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-3xl space-y-8"
-        >
-          <div className="space-y-2">
-            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Обо мне</p>
-            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
-              Я не гуру. Я проводник.
-            </h2>
-          </div>
-
-          <div className="space-y-6 font-paragraph text-lg leading-relaxed text-[#C9D6B9]">
-            <p>
-              Я прошёл собственную глубокую трансформацию. Знаю, что такое потеря опоры, смена идентичности и ощущение, что жизнь разваливается.
-            </p>
-            <p>
-              Работаю как коуч и психолог. Не даю мотивацию — помогаю вернуть ясность и опору. Помогаю людям услышать собственный голос, а не голос общества, родителей или собственного страха.
-            </p>
-            <p>
-              Мой опыт — это мой инструмент. Моя честность — это моё обещание.
-            </p>
-          </div>
-        </motion.div>
-      </section>
-
       {/* What You Gain Section */}
       <section id="results" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
         <motion.div
@@ -247,7 +214,34 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
+      <section id="about" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-3xl space-y-8"
+        >
+          <div className="space-y-2">
+            <p className="font-paragraph text-sm uppercase tracking-widest text-[#C2B280]">Обо мне</p>
+            <h2 className="font-heading text-4xl md:text-5xl leading-tight">
+              Я не гуру. Я проводник.
+            </h2>
+          </div>
 
+          <div className="space-y-6 font-paragraph text-lg leading-relaxed text-[#C9D6B9]">
+            <p>
+              Я прошёл собственную глубокую трансформацию. Знаю, что такое потеря опоры, смена идентичности и ощущение, что жизнь разваливается.
+            </p>
+            <p>
+              Работаю как коуч и психолог. Не даю мотивацию — помогаю вернуть ясность и опору. Помогаю людям услышать собственный голос, а не голос общества, родителей или собственного страха.
+            </p>
+            <p>
+              Мой опыт — это мой инструмент. Моя честность — это моё обещание.
+            </p>
+          </div>
+        </motion.div>
+      </section>
       {/* How to Start Section */}
       <section id="start" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-[#1A1A1F]">
         <motion.div
@@ -296,7 +290,6 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
-
       {/* Final CTA Section */}
       <section id="contact" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
         <motion.div
