@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Check } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const NoiseOverlay = () => (
   <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.03] mix-blend-overlay">
@@ -21,7 +19,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-primary text-textbody font-paragraph selection:bg-secondary selection:text-white overflow-clip relative">
       <NoiseOverlay />
-      <Header />
 
       {/* --- HERO SECTION --- */}
       <section className="relative w-full min-h-[95vh] flex items-center justify-center px-6 md:px-12 py-20 border-b border-bordersubtle/30">
@@ -315,7 +312,6 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <Footer />
     </div>
   );
 }
