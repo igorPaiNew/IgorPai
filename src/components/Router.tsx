@@ -4,13 +4,30 @@ import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import HomePage from '@/components/pages/HomePage';
 import ProductLandingPage from '@/components/pages/ProductLandingPage';
+import { WixServicesProvider, rootRouteLoader, MiniCart } from '@/wix-verticals/react-pages/react-router/routes/root';
+import { ProductDetailsRoute, productRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/product-details';
+import { StoreCollectionRoute, storeCollectionRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/store-collection';
+import { defaultStoreCollectionRouteRedirectLoader } from '@/wix-verticals/react-pages/react-router/routes/store-redirect';
+import { Cart } from '@/wix-verticals/react-pages/react-router/routes/cart';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { ShoppingCart } from 'lucide-react';
 
-// Layout component that includes ScrollToTop
-function Layout() {
+// Main Layout component that wraps all routes
+function MainLayout() {
   return (
     <>
       <ScrollToTop />
-      <Outlet />
+      <WixServicesProvider>
+        <div className="flex flex-col min-h-screen">
+          <MiniCart cartIcon={ShoppingCart} cartIconClassName="fixed top-20 right-6 z-40" />
+          <Header />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </WixServicesProvider>
     </>
   );
 }
@@ -18,8 +35,9 @@ function Layout() {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <MainLayout />,
     errorElement: <ErrorPage />,
+    loader: rootRouteLoader,
     children: [
       {
         index: true,
@@ -34,6 +52,39 @@ const router = createBrowserRouter([
         routeMetadata: {
           pageIdentifier: 'product',
         },
+      },
+      {
+        path: '/products/:slug',
+        element: <ProductDetailsRoute />,
+        loader: productRouteLoader,
+        routeMetadata: {
+          appDefId: "1380b703-ce81-ff05-f115-39571d94dfcd",
+          pageIdentifier: "wix.stores.sub_pages.product",
+          identifiers: {
+            slug: "STORES.PRODUCT.SLUG"
+          }
+        },
+      },
+      {
+        path: '/store',
+        element: <></>,
+        loader: defaultStoreCollectionRouteRedirectLoader,
+      },
+      {
+        path: '/store/:categorySlug',
+        element: <StoreCollectionRoute productPageRoute="/products" />,
+        loader: storeCollectionRouteLoader,
+        routeMetadata: {
+          appDefId: "1380b703-ce81-ff05-f115-39571d94dfcd",
+          pageIdentifier: "wix.stores.sub_pages.category",
+          identifiers: {
+            categorySlug: "STORES.CATEGORY.SLUG"
+          }
+        }
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
       {
         path: "*",
