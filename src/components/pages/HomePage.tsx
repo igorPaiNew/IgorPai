@@ -252,11 +252,12 @@ export default function HomePage() {
             className="flex justify-center"
           >
             <Image
-              src="https://static.wixstatic.com/media/3fbe1a_33c75b6240df40f69d76597ae381246b~mv2.png?originWidth=384&originHeight=576"
-              alt="Professional portrait of the coach"
+              src="https://static.wixstatic.com/media/3fbe1a_50a9d7fdd74f46db868d0f6f7a83a552~mv2.jpg"
               width={400}
               className="rounded-lg shadow-lg"
-            />
+              originWidth={500}
+              originHeight={500}
+             />
           </motion.div>
         </motion.div>
       </section>
