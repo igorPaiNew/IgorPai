@@ -16,19 +16,17 @@ import { ShoppingCart } from 'lucide-react';
 // Main Layout component that wraps all routes
 function MainLayout() {
   return (
-    <>
+    <WixServicesProvider>
       <ScrollToTop />
-      <WixServicesProvider>
-        <div className="flex flex-col min-h-screen">
-          <MiniCart cartIcon={ShoppingCart} cartIconClassName="fixed top-20 right-6 z-40" />
-          <Header />
-          <main className="flex-1">
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
-      </WixServicesProvider>
-    </>
+      <div className="flex flex-col min-h-screen">
+        <MiniCart cartIcon={ShoppingCart} cartIconClassName="fixed top-20 right-6 z-40" />
+        <Header />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </WixServicesProvider>
   );
 }
 
