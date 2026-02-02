@@ -11,6 +11,7 @@ import { defaultStoreCollectionRouteRedirectLoader } from '@/wix-verticals/react
 import { Cart } from '@/wix-verticals/react-pages/react-router/routes/cart';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ContactForm from '@/components/ContactForm';
 import { ShoppingCart } from 'lucide-react';
 
 // Main Layout component that wraps all routes
@@ -24,6 +25,7 @@ function MainLayout() {
         <main className="flex-1">
           <Outlet />
         </main>
+        <ContactForm />
         <Footer />
       </div>
     </WixServicesProvider>
