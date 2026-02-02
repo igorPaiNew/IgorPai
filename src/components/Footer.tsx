@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail } from 'lucide-react';
+import { Mail, Linkedin, Instagram, Facebook, Twitter } from 'lucide-react';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -15,9 +15,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <h3 className="font-heading text-2xl text-[#C2B280] mb-4 font-bold">
-              Ясность
-            </h3>
+            <h3 className="font-heading text-2xl text-[#C2B280] mb-4 font-bold">Igor Pai</h3>
             <p className="font-paragraph text-base text-[#C9D6B9] leading-relaxed">
               Коучинг и психологическое сопровождение для тех, кто готов вернуться к себе по-настоящему.
             </p>
@@ -64,9 +62,47 @@ export default function Footer() {
                 hello@clarity.coach
               </a>
             </div>
-            <p className="font-paragraph text-sm text-[#C9D6B9] leading-relaxed">
+            <p className="font-paragraph text-sm text-[#C9D6B9] leading-relaxed mb-6">
               Напишите мне, если у вас есть вопросы.
             </p>
+            <div className="flex gap-4">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
 

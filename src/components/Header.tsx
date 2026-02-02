@@ -19,9 +19,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="font-heading text-2xl md:text-3xl text-[#C2B280] font-bold">
-              Ясность
-            </span>
+            <span className="font-heading text-2xl md:text-3xl text-[#C2B280] font-bold">Igor Pai</span>
           </Link>
 
           {/* Desktop Navigation */}
