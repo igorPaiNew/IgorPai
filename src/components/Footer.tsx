@@ -103,7 +103,7 @@ export default function Footer() {
                 <MessageCircle className="w-5 h-5" />
               </a>
               <a
-                href="https://t.me/"
+                href="http://t.me/igorPaiTransformationCoach"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
