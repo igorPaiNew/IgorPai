@@ -67,7 +67,7 @@ export default function ContactForm() {
             Заполните форму ниже, и я свяжусь с вами в ближайшее время.
           </p>
           <p className="font-paragraph text-base text-[#8A9A5B] mb-12 flex items-center gap-2">
-            <span>или напишите прямо в WhatsApp или Telegram</span>
+
             <a href="https://wa.me/972547608090" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#1fa857] transition-colors" title="WhatsApp">
               <MessageCircle size={18} className="text-white" />
             </a>
