@@ -58,9 +58,7 @@ export default function Footer() {
               <a
                 href="mailto:hello@clarity.coach"
                 className="font-paragraph text-base text-[#EDEDED] hover:text-[#C2B280] transition-colors"
-              >
-                hello@clarity.coach
-              </a>
+              >igor@igorpai.com</a>
             </div>
             <p className="font-paragraph text-sm text-[#C9D6B9] leading-relaxed mb-6">
               Напишите мне, если у вас есть вопросы.
