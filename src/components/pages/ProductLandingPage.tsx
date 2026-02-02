@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
+import Footer from '@/components/Footer';
 import { 
   ArrowRight, 
   CheckCircle2, 
