@@ -14,8 +14,6 @@ import {
   ChevronDown,
   Sparkles
 } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 // --- Utility Components ---
 
@@ -61,7 +59,6 @@ export default function ProductLandingPage() {
   return (
     <div ref={containerRef} className="min-h-screen bg-primary text-textbody font-paragraph selection:bg-secondary selection:text-white overflow-clip relative">
       <NoiseOverlay />
-      <Header />
 
       {/* --- HERO SECTION: Split Layout (Inspiration Image Replication) --- */}
       <section className="relative w-full min-h-[95vh] grid lg:grid-cols-[1.4fr_1fr] border-b border-bordersubtle/30">
