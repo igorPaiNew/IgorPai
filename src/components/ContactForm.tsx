@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { MessageCircle, Send } from 'lucide-react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -62,8 +63,17 @@ export default function ContactForm() {
           <h2 className="font-heading text-4xl md:text-5xl text-[#C2B280] mb-4 font-bold">
             Свяжитесь со мной
           </h2>
-          <p className="font-paragraph text-lg text-[#C9D6B9] mb-12">
+          <p className="font-paragraph text-lg text-[#C9D6B9] mb-8">
             Заполните форму ниже, и я свяжусь с вами в ближайшее время.
+          </p>
+          <p className="font-paragraph text-base text-[#8A9A5B] mb-12 flex items-center gap-2">
+            <span>или напишите прямо в WhatsApp или Telegram</span>
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#1fa857] transition-colors" title="WhatsApp">
+              <MessageCircle size={18} className="text-white" />
+            </a>
+            <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#0088cc] hover:bg-[#006ba3] transition-colors" title="Telegram">
+              <Send size={18} className="text-white" />
+            </a>
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
