@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Linkedin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Mail, Linkedin, Instagram, Facebook, MessageCircle, Send } from 'lucide-react';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -92,6 +92,24 @@ export default function Footer() {
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://wa.me/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="w-5 h-5" />
+              </a>
+              <a
+                href="https://t.me/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
+                aria-label="Telegram"
+              >
+                <Send className="w-5 h-5" />
               </a>
             </div>
           </div>
