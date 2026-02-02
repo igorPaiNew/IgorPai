@@ -68,10 +68,10 @@ export default function ContactForm() {
           </p>
           <p className="font-paragraph text-base text-[#8A9A5B] mb-12 flex items-center gap-2">
             <span>или напишите прямо в WhatsApp или Telegram</span>
-            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#1fa857] transition-colors" title="WhatsApp">
+            <a href="https://wa.me/972547608090" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#1fa857] transition-colors" title="WhatsApp">
               <MessageCircle size={18} className="text-white" />
             </a>
-            <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#0088cc] hover:bg-[#006ba3] transition-colors" title="Telegram">
+            <a href="http://t.me/igorPaiTransformationCoach/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#0088cc] hover:bg-[#006ba3] transition-colors" title="Telegram">
               <Send size={18} className="text-white" />
             </a>
           </p>
