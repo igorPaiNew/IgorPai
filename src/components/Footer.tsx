@@ -67,7 +67,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/igor-paevshik-b8b81469/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
@@ -76,7 +76,7 @@ export default function Footer() {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/liveindream/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
@@ -85,22 +85,13 @@ export default function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/people/%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%9B%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D1%81-%D0%98%D0%B3%D0%BE%D1%80%D0%B5%D0%BC-%D0%9F%D0%B0%D0%B9/61571864863584/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#C9D6B9] hover:text-[#C2B280] transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>
