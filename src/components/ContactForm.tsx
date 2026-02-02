@@ -57,7 +57,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="w-full bg-[#1A1F1A] border-t border-[#5A6A4A]">
+    <section id="contact" className="w-full bg-[#1A1F1A] border-t border-[#5A6A4A]">
       <div className="max-w-[120rem] mx-auto px-6 md:px-12 py-16 md:py-20">
         <div className="max-w-2xl mx-auto">
           <h2 className="font-heading text-4xl md:text-5xl text-[#C2B280] mb-4 font-bold">

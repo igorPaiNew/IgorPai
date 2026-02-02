@@ -309,7 +309,7 @@ export default function HomePage() {
         </motion.div>
       </section>
       {/* Final CTA Section */}
-      <section id="contact" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
+      <section className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
