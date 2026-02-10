@@ -32,7 +32,7 @@ export default function LandingPage() {
     'Хроническая усталость — без медицинских причин',
     'Снаружи «всё хорошо» — но внутри пусто',
     'Не помнишь, когда последний раз делал что-то только для себя',
-    'Боишься показать настоящего себя — вдруг не примут',
+    'Боишься показать настоящего себя — вдруг не примят',
     'Живёшь «на автомате» — не по выбору, а по инерции',
     'Не знаешь, чего на самом деле хочешь от жизни',
     'Чувствуешь, что живёшь не своей жизнью',
@@ -117,7 +117,7 @@ export default function LandingPage() {
     <div className="w-full bg-background text-foreground">
       {/* Hero Section */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-16 md:py-24">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 items-center text-center">
           {/* Bonus Banner */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -132,14 +132,14 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="space-y-4"
+            className="space-y-4 max-w-3xl"
           >
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-tight">
               Ты устал жить
               <br />
               <span className="text-secondary">не своей жизнью.</span>
             </h1>
-            <p className="font-paragraph text-lg md:text-xl text-textlight max-w-2xl">
+            <p className="font-paragraph text-lg md:text-xl text-textlight mx-auto">
               «Карта Свободы» — практическое руководство, которое покажет где именно ты потерял себя и даст конкретный план возвращения.
             </p>
           </motion.div>
@@ -149,14 +149,14 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-6"
+            className="flex flex-col sm:flex-row items-center gap-6"
           >
             <div className="space-y-2">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 justify-center">
                 <span className="text-3xl font-heading font-bold text-secondary">2,700 ₽</span>
                 <span className="text-lg text-textlight line-through">4,500 ₽</span>
               </div>
-              <p className="text-sm text-textlight">≈ $27</p>
+              <p className="text-sm text-textlight text-center">≈ $27</p>
             </div>
             <button className="bg-secondary text-primary font-heading font-bold px-8 py-4 rounded-lg hover:bg-secondary/90 transition-colors">
               ПОЛУЧИТЬ КАРТУ СВОБОДЫ →
@@ -168,7 +168,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex flex-wrap gap-6 text-sm text-textlight font-paragraph"
+            className="flex flex-wrap gap-6 text-sm text-textlight font-paragraph justify-center"
           >
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-secondary" />
@@ -193,9 +193,9 @@ export default function LandingPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex flex-col sm:flex-row items-center justify-between gap-8"
+            className="flex flex-col sm:flex-row items-center justify-center gap-8"
           >
-            <div>
+            <div className="text-center">
               <p className="font-heading text-lg font-bold mb-2">500+ человек уже начали путь к себе</p>
               <p className="text-textlight text-sm">Смотреть историю · ≈ 8 минут</p>
             </div>
@@ -214,7 +214,7 @@ export default function LandingPage() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="font-heading text-4xl md:text-5xl font-bold mb-12"
+          className="font-heading text-4xl md:text-5xl font-bold mb-12 text-center"
         >
           Отзывы
           <br />
@@ -255,14 +255,14 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="space-y-12"
           >
-            <div>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Узнаёте себя?</h2>
+            <div className="text-center">
+              <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Узнаёете себя?</h2>
               <p className="font-paragraph text-textlight text-lg">
                 Если хотя бы 3 пункта про вас — эта карта для вас
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {checkpoints.map((checkpoint, index) => (
                 <motion.div
                   key={index}
@@ -333,7 +333,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="space-y-12"
           >
-            <h2 className="font-heading text-4xl md:text-5xl font-bold">
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-center">
               Автор
               <br />
               <span className="text-secondary">Кто за этим стоит</span>
@@ -424,12 +424,12 @@ export default function LandingPage() {
 
       {/* Pricing Card Section */}
       <section className="w-full bg-bordersubtle/30 py-16 md:py-24">
-        <div className="max-w-[120rem] mx-auto px-4">
+        <div className="max-w-[120rem] mx-auto px-4 flex justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-background border border-bordersubtle rounded-lg p-8 md:p-12 space-y-8 max-w-2xl"
+            className="bg-background border border-bordersubtle rounded-lg p-8 md:p-12 space-y-8 max-w-2xl w-full"
           >
             <div>
               <h2 className="font-heading text-3xl md:text-4xl font-bold mb-2">Начни сегодня</h2>
@@ -482,7 +482,7 @@ export default function LandingPage() {
           viewport={{ once: true }}
           className="space-y-8"
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center">
             Это не для вас, если:
           </h2>
 
@@ -516,7 +516,7 @@ export default function LandingPage() {
             Вопросы
           </motion.h2>
 
-          <div className="space-y-4 max-w-3xl">
+          <div className="space-y-4 max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}

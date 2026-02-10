@@ -96,7 +96,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/landing',
-        element: <LandingPage />,
+        element: (
+          <MinimalLayout>
+            <LandingPage />
+          </MinimalLayout>
+        ),
       },
       {
         path: "*",
