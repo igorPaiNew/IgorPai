@@ -248,7 +248,7 @@ export default function FreedomMapLanding() {
           </h2>
 
           <div className="flex flex-col md:flex-row gap-8 items-start bg-primary border border-bordersubtle rounded-lg p-8">
-            <Image src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png" alt="Автор" className="w-36 h-36 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0" />
+            <img src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png" alt="Автор" className="w-36 h-36 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0" />
             <div>
               <h3 className="font-heading text-xl font-bold text-foreground mb-1">[Ваше имя]</h3>
               <p className="font-paragraph text-xs font-bold uppercase tracking-widest text-secondary mb-4">
