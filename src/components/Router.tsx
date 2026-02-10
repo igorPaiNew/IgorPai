@@ -33,6 +33,21 @@ function MainLayout() {
   );
 }
 
+// Layout without Header and Footer for specific pages
+function MinimalLayout() {
+  return (
+    <WixServicesProvider>
+      <ScrollToTop />
+      <div className="flex flex-col min-h-screen">
+        <MiniCart cartIcon={ShoppingCart} cartIconClassName="fixed top-20 right-6 z-40" />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
+    </WixServicesProvider>
+  );
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,10 +71,16 @@ const router = createBrowserRouter([
       },
       {
         path: "freedom-map",
-        element: <FreedomMapLanding />,
-        routeMetadata: {
-          pageIdentifier: 'freedom-map',
-        },
+        element: <MinimalLayout />,
+        children: [
+          {
+            index: true,
+            element: <FreedomMapLanding />,
+            routeMetadata: {
+              pageIdentifier: 'freedom-map',
+            },
+          },
+        ],
       },
       {
         path: '/products/:slug',
