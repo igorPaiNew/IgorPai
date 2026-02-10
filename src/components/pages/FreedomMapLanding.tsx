@@ -1,4 +1,4 @@
-// import { Image } from '@/components/ui/image';
+import { Image } from '@/components/ui/image';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { useState } from 'react';
