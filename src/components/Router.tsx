@@ -35,7 +35,7 @@ function MainLayout() {
 // Layout without Header and Footer for specific pages
 function MinimalLayout() {
   return (
-    <WixServicesProvider>
+    <>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <MiniCart cartIcon={ShoppingCart} cartIconClassName="fixed top-20 right-6 z-40" />
@@ -43,7 +43,7 @@ function MinimalLayout() {
           <Outlet />
         </main>
       </div>
-    </WixServicesProvider>
+    </>
   );
 }
 
