@@ -1,7 +1,7 @@
-import { Image } from '@/components/ui/image';
-import { motion } from 'framer-motion';
-import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
-import { useState } from 'react';
+// import { Image } from '@/components/ui/image';
+// import { motion } from 'framer-motion';
+// import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
+// import { useState } from 'react';
 
 export default function FreedomMapLanding() {
   // const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -431,5 +431,5 @@ export default function FreedomMapLanding() {
 
   //   </div>
   // );
-  return null;
+  // return null;
 }
