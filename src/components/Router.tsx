@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-rou
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import HomePage from '@/components/pages/HomePage';
+import LandingPage from '@/components/pages/LandingPage';
 import { WixServicesProvider, rootRouteLoader, MiniCart } from '@/wix-verticals/react-pages/react-router/routes/root';
 import { ProductDetailsRoute, productRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/product-details';
 import { StoreCollectionRoute, storeCollectionRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/store-collection';
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />,
+      },
+      {
+        path: '/landing',
+        element: <LandingPage />,
       },
       {
         path: "*",
