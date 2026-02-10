@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-rou
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import HomePage from '@/components/pages/HomePage';
+import FreedomPage from '@/components/pages/FreedomPage';
 import { WixServicesProvider, rootRouteLoader, MiniCart } from '@/wix-verticals/react-pages/react-router/routes/root';
 import { ProductDetailsRoute, productRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/product-details';
 import { StoreCollectionRoute, storeCollectionRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/store-collection';
@@ -38,6 +39,20 @@ function MinimalLayout() {
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <MiniCart cartIcon={ShoppingCart} cartIconClassName="fixed top-20 right-6 z-40" />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
+    </>
+  );
+}
+
+// Layout for Freedom page - no header, footer, or mini cart
+function FreedomLayout() {
+  return (
+    <>
+      <ScrollToTop />
+      <div className="flex flex-col min-h-screen">
         <main className="flex-1">
           <Outlet />
         </main>
@@ -92,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />,
+      },
+      {
+        path: '/freedom',
+        element: <FreedomPage />,
       },
       {
         path: "*",
