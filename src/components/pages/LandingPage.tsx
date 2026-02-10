@@ -114,7 +114,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="w-full bg-background text-foreground">
+    <div className="w-full min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-16 md:py-24">
         <div className="flex flex-col gap-8 items-center text-center">
