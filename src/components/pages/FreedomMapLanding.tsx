@@ -1,644 +1,1171 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Check, X, ChevronDown, ChevronUp } from 'lucide-react';
-import { Image } from '@/components/ui/image';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карта Свободы — Вернись к себе</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0f0e0c;
+    --deep: #1a1814;
+    --warm: #2a261f;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --text: #e8e0d0;
+    --muted: #9a9080;
+    --red: #c0392b;
+    --green: #27ae60;
+  }
 
-export default function FreedomMapLanding() {
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-    viewport: { once: true, margin: '0px 0px -100px 0px' },
-  };
+  html { scroll-behavior: smooth; }
 
-  return (
-    <div className="w-full bg-background">
-      {/* Hero Section */}
-      <section className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-32">
-        <motion.div className="text-center" {...fadeInUp}>
-          <h1 className="font-heading text-6xl md:text-7xl font-bold text-foreground mb-6">
-            КАРТА СВОБОДЫ
-          </h1>
-          <p className="font-heading text-2xl md:text-3xl text-secondary mb-8">
-            Практическое руководство по возвращению к себе
-          </p>
-          <p className="font-paragraph text-lg text-textlight max-w-2xl mx-auto mb-12">
-            36 страниц, которые покажут где вы потеряли себя и как начать возвращаться
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-buttonbackground hover:bg-secondary text-buttonforeground font-heading font-bold py-4 px-8 rounded-lg text-lg transition-colors"
-          >
-            ПОЛУЧИТЬ КАРТУ СВОБОДЫ
-          </motion.button>
-        </motion.div>
-      </section>
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Mulish', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-      {/* Section 1: Brief Description */}
-      <section id="about" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
-        <motion.div className="max-w-3xl mx-auto" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-8">
-            Это не очередная книга по саморазвитию
-          </h2>
-          <p className="font-paragraph text-lg text-textbody mb-8 leading-relaxed">
-            Это практическая карта для тех, кто устал жить в маске.
-          </p>
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
 
-          <div className="grid md:grid-cols-2 gap-8 mt-12">
-            {[
-              { title: 'Увидите', description: 'где именно потеряли себя' },
-              { title: 'Поймёте', description: 'свои автоматические паттерны' },
-              { title: 'Получите', description: 'конкретные инструменты для изменений' },
-              { title: 'Сделаете', description: 'первые шаги к возвращению к себе' },
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                className="bg-primary border border-bordersubtle rounded-lg p-6"
-                {...fadeInUp}
-              >
-                <h3 className="font-heading text-xl font-bold text-secondary mb-2">
-                  {item.title}
-                </h3>
-                <p className="font-paragraph text-textlight">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
+  /* ── TYPOGRAPHY ── */
+  h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.2; }
 
-          <p className="font-paragraph text-base text-textlight mt-12 text-center">
-            За 30 дней вы получите всё это
-          </p>
-        </motion.div>
-      </section>
+  .gold { color: var(--gold); }
+  .italic { font-style: italic; }
 
-      {/* Section 2: For Whom */}
-      <section id="for-whom" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-primary">
-        <motion.div className="max-w-3xl mx-auto" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">
-            Для кого эта карта
-          </h2>
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px 80px;
+    position: relative;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, #2a2218 0%, var(--dark) 70%);
+  }
 
-          <div className="space-y-4">
-            {[
-              'Вы чувствуете, что живёте "не своей жизнью"',
-              'Говорите "да", когда внутри кричит "нет"',
-              'Устали соответствовать ожиданиям других',
-              'Не помните, когда последний раз делали что-то для себя',
-              'Чувствуете хроническую усталость без причин',
-              'Боитесь показать настоящего себя',
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                className="flex items-start gap-4 p-4 rounded-lg bg-background border border-bordersubtle"
-                {...fadeInUp}
-              >
-                <Check className="w-6 h-6 text-secondary flex-shrink-0 mt-1" />
-                <p className="font-paragraph text-lg text-textbody">{item}</p>
-              </motion.div>
-            ))}
-          </div>
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--dark));
+  }
 
-          <motion.p className="font-paragraph text-lg text-secondary mt-12 text-center font-bold" {...fadeInUp}>
-            Если хотя бы 2 пункта про вас — эта карта для вас.
-          </motion.p>
-        </motion.div>
-      </section>
+  .hero-eyebrow {
+    font-family: 'Mulish', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
 
-      {/* Section 3: What's Inside */}
-      <section id="content" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
-        <motion.h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-16 text-center" {...fadeInUp}>
-          Что внутри — детально
-        </motion.h2>
+  .hero h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    text-align: center;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+    letter-spacing: -0.02em;
+  }
 
-        {/* Part 1: Diagnostics */}
-        <motion.div className="mb-16" {...fadeInUp}>
-          <div className="bg-primary border-2 border-secondary rounded-lg p-8 md:p-12">
-            <h3 className="font-heading text-3xl font-bold text-secondary mb-8">
-              📍 ЧАСТЬ 1: ДИАГНОСТИКА (стр 1-9)
-            </h3>
+  .hero-sub {
+    font-size: clamp(17px, 2.5vw, 22px);
+    color: var(--muted);
+    text-align: center;
+    max-width: 560px;
+    margin-top: 24px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
 
-            <div className="space-y-6">
-              <div>
-                <h4 className="font-heading text-xl font-bold text-foreground mb-3">
-                  Тест "Где вы потеряли себя?"
-                </h4>
-                <ul className="font-paragraph text-textlight space-y-2 ml-4">
-                  <li>• 15 вопросов для определения уровня потери себя</li>
-                  <li>• Интерпретация результатов (критический/средний/начальный)</li>
-                </ul>
-              </div>
+  /* ── VSL BOX ── */
+  .vsl-section {
+    padding: 20px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-              <div>
-                <h4 className="font-heading text-xl font-bold text-foreground mb-3">
-                  Ваш тип маски
-                </h4>
-                <ul className="font-paragraph text-textlight space-y-2 ml-4">
-                  <li>• 4 типа: Герой, Спасатель, Отличник, Невидимка</li>
-                  <li>• Корни каждой маски (откуда она пришла)</li>
-                  <li>• Последствия для жизни</li>
-                </ul>
-              </div>
+  .vsl-box {
+    width: 100%;
+    max-width: 780px;
+    background: var(--deep);
+    border: 1px solid #3a3428;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.1);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
 
-              <div>
-                <h4 className="font-heading text-xl font-bold text-foreground mb-3">
-                  Карта симптомов
-                </h4>
-                <ul className="font-paragraph text-textlight space-y-2 ml-4">
-                  <li>• Анализ 5 сфер: отношения, работа, здоровье, финансы, творчество</li>
-                  <li>• Шкала боли 1-10 для каждой сферы</li>
-                </ul>
-              </div>
+  .vsl-placeholder {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a1812 0%, #252018 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
 
-              <div>
-                <h4 className="font-heading text-xl font-bold text-foreground mb-3">
-                  Калькулятор потерь
-                </h4>
-                <ul className="font-paragraph text-textlight space-y-2 ml-4">
-                  <li>• Сколько времени уходит на "не своё"</li>
-                  <li>• Сколько денег тратится на последствия</li>
-                  <li>• Реальная цена жизни в маске</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+  .vsl-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
 
-        {/* Part 2: 3 Keys Method */}
-        <motion.div className="mb-16" {...fadeInUp}>
-          <div className="bg-primary border-2 border-secondary rounded-lg p-8 md:p-12">
-            <h3 className="font-heading text-3xl font-bold text-secondary mb-8">
-              🔑 ЧАСТЬ 2: МЕТОД "3 КЛЮЧА" (стр 10-20)
-            </h3>
+  .play-btn {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
 
-            <div className="space-y-8">
-              {[
-                {
-                  title: 'КЛЮЧ #1: Пауза осознанности',
-                  items: [
-                    'Техника "90 секунд" (6 шагов)',
-                    'Как остановить автопилот реакций',
-                    'Трекер пауз на 7 дней',
-                    'Ловушка #1: Почему забываете про паузу в критический момент',
-                  ],
-                },
-                {
-                  title: 'КЛЮЧ #2: Граница "НЕТ"',
-                  items: [
-                    'Формула границы (3 части)',
-                    '5 типов "нет" со скриптами (работа, отношения, семья, себе, манипуляция)',
-                    'Практика "Микро-нет" на неделю',
-                    'Ловушка #2: Почему вина съедает после "нет"',
-                  ],
-                },
-                {
-                  title: 'КЛЮЧ #3: Дневник "Я vs Маска"',
-                  items: [
-                    'Шаблон ежедневной записи',
-                    '3 примера разборов реальных ситуаций',
-                    'Как увидеть паттерны через 2-3 недели',
-                    'Ловушка #3: Западня самоанализа без выхода',
-                  ],
-                },
-              ].map((key, idx) => (
-                <div key={idx} className="bg-background border border-bordersubtle rounded-lg p-6">
-                  <h4 className="font-heading text-xl font-bold text-secondary mb-4">
-                    {key.title}
-                  </h4>
-                  <ul className="font-paragraph text-textlight space-y-2 ml-4">
-                    {key.items.map((item, itemIdx) => (
-                      <li key={itemIdx}>• {item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+  .play-btn::after {
+    content: '';
+    width: 0; height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 22px solid var(--gold);
+    margin-left: 5px;
+  }
 
-            <p className="font-paragraph text-textlight mt-8 p-4 bg-background border-l-4 border-secondary rounded">
-              ⚠️ ВАЖНО: После каждого ключа — честный разбор, почему это не работает самостоятельно у 70-80% людей
-            </p>
-          </div>
-        </motion.div>
+  .vsl-placeholder:hover .play-btn {
+    background: rgba(201,168,76,0.15);
+    transform: scale(1.08);
+    box-shadow: 0 0 40px rgba(201,168,76,0.3);
+  }
 
-        {/* Part 3: Transformation Stories */}
-        <motion.div className="mb-16" {...fadeInUp}>
-          <div className="bg-primary border-2 border-secondary rounded-lg p-8 md:p-12">
-            <h3 className="font-heading text-3xl font-bold text-secondary mb-8">
-              📖 ЧАСТЬ 3: ИСТОРИИ ТРАНСФОРМАЦИИ (стр 21-26)
-            </h3>
+  .vsl-label {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative; z-index: 1;
+  }
 
-            <div className="space-y-6">
-              {[
-                {
-                  name: 'Анна, 37 лет',
-                  mask: 'маска "Спасатель"',
-                  paths: [
-                    { path: 'Путь A: Соло с PDF', result: 'Капитуляция через 3 месяца' },
-                    { path: 'Путь Б: Пробная сессия + 30 дней', result: 'Первые сдвиги, потолок' },
-                    { path: 'Путь В: Личное сопровождение', result: 'Полная трансформация за 6 месяцев' },
-                  ],
-                },
-                {
-                  name: 'Денис, 44 года',
-                  mask: 'маска "Герой"',
-                  paths: [
-                    { path: 'Путь A: Соло с PDF', result: 'Капитуляция через 3 месяца' },
-                    { path: 'Путь Б: Пробная сессия + 30 дней', result: 'Первые сдвиги, потолок' },
-                    { path: 'Путь В: Личное сопровождение', result: 'Полная трансформация за 6 месяцев' },
-                  ],
-                },
-                {
-                  name: 'Елена, 29 лет',
-                  mask: 'маска "Невидимка"',
-                  paths: [
-                    { path: 'Путь A: Соло с PDF', result: 'Капитуляция через 3 месяца' },
-                    { path: 'Путь Б: Пробная сессия + 30 дней', result: 'Первые сдвиги, потолок' },
-                    { path: 'Путь В: Личное сопровождение', result: 'Полная трансформация за 6 месяцев' },
-                  ],
-                },
-              ].map((story, idx) => (
-                <div key={idx} className="bg-background border border-bordersubtle rounded-lg p-6">
-                  <h4 className="font-heading text-lg font-bold text-secondary mb-2">
-                    {story.name} ({story.mask})
-                  </h4>
-                  <div className="space-y-2">
-                    {story.paths.map((pathItem, pathIdx) => (
-                      <p key={pathIdx} className="font-paragraph text-textlight">
-                        <span className="text-foreground font-bold">{pathItem.path}:</span> {pathItem.result}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+  .vsl-duration {
+    position: absolute;
+    bottom: 16px; right: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(0,0,0,0.5);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
 
-        {/* Part 4: 30-Day Roadmap */}
-        <motion.div className="mb-16" {...fadeInUp}>
-          <div className="bg-primary border-2 border-secondary rounded-lg p-8 md:p-12">
-            <h3 className="font-heading text-3xl font-bold text-secondary mb-8">
-              🗺 ЧАСТЬ 4: ROADMAP "30 ДНЕЙ" (стр 27-28)
-            </h3>
+  /* ── PAIN SECTION ── */
+  .pain-section {
+    padding: 100px 24px;
+    max-width: 740px;
+    margin: 0 auto;
+  }
 
-            <div className="space-y-6">
-              {[
-                {
-                  week: 'Неделя 1',
-                  title: 'Диагностика и осознание',
-                  items: [
-                    'День 1-2: Тест, карта симптомов, калькулятор',
-                    'День 3-4: Определить тип маски',
-                    'День 5-7: Начать дневник',
-                  ],
-                },
-                {
-                  week: 'Неделя 2',
-                  title: 'Практика "Пауза"',
-                  items: [
-                    'Изучение техники "90 секунд"',
-                    'Создание якорей-напоминаний',
-                    'Минимум 3 успешные паузы',
-                  ],
-                },
-                {
-                  week: 'Неделя 3',
-                  title: 'Практика "Микро-нет"',
-                  items: [
-                    'День 15-16: Нет с низким риском',
-                    'День 17-18: Нет коллегам',
-                    'День 19-21: Нет близким',
-                  ],
-                },
-                {
-                  week: 'Неделя 4',
-                  title: 'Интеграция и оценка',
-                  items: [
-                    'Анализ паттернов из дневника',
-                    'Оценка результатов',
-                    'День 30: Точка принятия решения',
-                  ],
-                },
-              ].map((week, idx) => (
-                <div key={idx} className="bg-background border border-bordersubtle rounded-lg p-6">
-                  <h4 className="font-heading text-lg font-bold text-secondary mb-2">
-                    {week.week}: {week.title}
-                  </h4>
-                  <ul className="font-paragraph text-textlight space-y-2 ml-4">
-                    {week.items.map((item, itemIdx) => (
-                      <li key={itemIdx}>• {item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+  .pain-section h2 {
+    font-size: clamp(32px, 5vw, 52px);
+    margin-bottom: 48px;
+    text-align: center;
+  }
 
-        {/* Part 5: Three Doors */}
-        <motion.div {...fadeInUp}>
-          <div className="bg-primary border-2 border-secondary rounded-lg p-8 md:p-12">
-            <h3 className="font-heading text-3xl font-bold text-secondary mb-8">
-              🚪 ЧАСТЬ 5: ТРИ ДВЕРИ ВЫБОРА (стр 29-36)
-            </h3>
+  .pain-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
 
-            <p className="font-paragraph text-textlight mb-8">
-              После 30 дней у вас есть выбор:
-            </p>
+  .pain-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid #2a2620;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.5s ease;
+  }
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: 'Дверь #1',
-                  subtitle: 'Самостоятельная работа',
-                  forWho: 'Для кого: лёгкие случаи, высокая самодисциплина',
-                  reality: 'Реальность: 70% бросают через 2-3 месяца',
-                  price: 'только PDF (2,700₽)',
-                  color: 'border-bordersubtle',
-                },
-                {
-                  title: 'Дверь #2',
-                  subtitle: 'Пробная сессия + 30 дней',
-                  forWho: 'Для кого: видите сдвиги, но чувствуете "потолок"',
-                  reality: 'Что входит: 90 минут диагностики, персональный план, чат-поддержка',
-                  price: '8,000₽ (вычитается из стоимости сопровождения)',
-                  color: 'border-secondary',
-                },
-                {
-                  title: 'Дверь #3',
-                  subtitle: 'Личное сопровождение',
-                  forWho: 'Для кого: готовы к глубине',
-                  reality: 'Пакеты: 6 / 12 / 18 месяцев. Работа с корнями травм (EMDR, IFS, соматика)',
-                  price: 'от 240,000₽',
-                  color: 'border-secondary',
-                },
-              ].map((door, idx) => (
-                <div key={idx} className={`bg-background border-2 ${door.color} rounded-lg p-6`}>
-                  <h4 className="font-heading text-lg font-bold text-secondary mb-2">
-                    {door.title}
-                  </h4>
-                  <p className="font-heading text-base font-bold text-foreground mb-4">
-                    {door.subtitle}
-                  </p>
-                  <div className="space-y-3">
-                    <p className="font-paragraph text-sm text-textlight">
-                      <span className="font-bold text-foreground">Для кого:</span> {door.forWho}
-                    </p>
-                    <p className="font-paragraph text-sm text-textlight">
-                      {door.reality}
-                    </p>
-                    <p className="font-heading text-base font-bold text-secondary">
-                      {door.price}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </section>
+  .pain-item.visible { opacity: 1; transform: translateX(0); }
 
-      {/* Section 4: Results */}
-      <section id="results" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-primary">
-        <motion.div className="max-w-3xl mx-auto" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">
-            Результаты через 30 дней
-          </h2>
+  .pain-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--red);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+    font-size: 12px;
+    color: var(--red);
+  }
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div>
-              <h3 className="font-heading text-2xl font-bold text-secondary mb-6">
-                ✓ Что получите
-              </h3>
-              <ul className="space-y-4">
-                {[
-                  'Поймёте свой тип маски и где потеряли себя',
-                  'Увидите автоматические паттерны поведения',
-                  'Попробуете 3 рабочих инструмента',
-                  'Получите чёткий план на месяц',
-                  'Узнаете свои ограничения (где нужна помощь)',
-                  'Сделаете осознанный выбор дальнейшего пути',
-                ].map((item, idx) => (
-                  <motion.div key={idx} className="flex items-start gap-3" {...fadeInUp}>
-                    <Check className="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
-                    <p className="font-paragraph text-textbody">{item}</p>
-                  </motion.div>
-                ))}
-              </ul>
-            </div>
+  .pain-text { font-size: 17px; color: var(--text); font-weight: 300; }
 
-            <div>
-              <h3 className="font-heading text-2xl font-bold text-destructive mb-6">
-                ✗ Что не получите
-              </h3>
-              <ul className="space-y-4">
-                {[
-                  'Волшебную таблетку (её не существует)',
-                  'Быстрое решение за один вечер',
-                  'Гарантию результата без вашей работы',
-                  'Групповой курс или марафон',
-                ].map((item, idx) => (
-                  <motion.div key={idx} className="flex items-start gap-3" {...fadeInUp}>
-                    <X className="w-5 h-5 text-destructive flex-shrink-0 mt-1" />
-                    <p className="font-paragraph text-textbody">{item}</p>
-                  </motion.div>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </motion.div>
-      </section>
+  /* ── DIVIDER ── */
+  .gold-divider {
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin: 0 auto 80px;
+    opacity: 0.6;
+  }
 
-      {/* Section 5: Not For Whom */}
-      <section id="not-for" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
-        <motion.div className="max-w-3xl mx-auto" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">
-            Для кого это не подойдёт
-          </h2>
+  /* ── ABOUT PDF ── */
+  .about-section {
+    padding: 80px 24px 100px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-          <div className="space-y-4">
-            {[
-              'Вы ищете быстрое решение "прочитать и готово"',
-              'Не готовы честно смотреть на себя',
-              'Ждёте, что кто-то решит проблемы за вас',
-              'Хотите "мотивационный пинок" без реальной работы',
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                className="flex items-start gap-4 p-4 rounded-lg bg-primary border border-bordersubtle"
-                {...fadeInUp}
-              >
-                <X className="w-6 h-6 text-destructive flex-shrink-0 mt-1" />
-                <p className="font-paragraph text-lg text-textbody">{item}</p>
-              </motion.div>
-            ))}
-          </div>
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
 
-          <motion.p className="font-paragraph text-lg text-secondary mt-12 text-center font-bold" {...fadeInUp}>
-            Это карта для тех, кто готов идти.
-          </motion.p>
-        </motion.div>
-      </section>
+  .about-section h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin-bottom: 20px;
+  }
 
-      {/* Section 6: Author */}
-      <section id="author" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-primary">
-        <motion.div className="max-w-2xl mx-auto text-center" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-12">
-            Об авторе
-          </h2>
+  .about-intro {
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 600px;
+    margin-bottom: 60px;
+    line-height: 1.8;
+  }
 
-          <div className="mb-8">
-            <Image
-              src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png?originWidth=192&originHeight=192"
-              alt="Автор"
-              width={200}
-              height={200}
-              className="w-48 h-48 rounded-full mx-auto object-cover border-4 border-secondary"
-            />
-          </div>
+  .parts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+    background: #2a2620;
+    border: 1px solid #2a2620;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
 
-          <h3 className="font-heading text-2xl font-bold text-foreground mb-2">
-            [Ваше имя]
-          </h3>
-          <p className="font-heading text-lg text-secondary mb-6">
-            [Ваш титул/опыт]
-          </p>
+  .part-card {
+    background: var(--deep);
+    padding: 32px 28px;
+    transition: background 0.3s ease;
+  }
 
-          <p className="font-paragraph text-lg text-textlight leading-relaxed">
-            Я прошёл этот путь сам. 10+ лет работы с клиентами. 500+ людей вернулись к себе.
-          </p>
-        </motion.div>
-      </section>
+  .part-card:hover { background: var(--warm); }
 
-      {/* Section 7: Pricing & CTA */}
-      <section id="pricing" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
-        <motion.div className="max-w-2xl mx-auto text-center" {...fadeInUp}>
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-            КАРТА СВОБОДЫ
-          </h2>
-          <p className="font-paragraph text-lg text-textlight mb-8">
-            36 страниц практического руководства
-          </p>
+  .part-num {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
 
-          <div className="mb-12">
-            <p className="font-paragraph text-lg text-textlight line-through mb-2">
-              Обычная цена: 4,500₽
-            </p>
-            <p className="font-heading text-5xl font-bold text-secondary mb-4">
-              2,700₽
-            </p>
-            <p className="font-paragraph text-base text-textlight">
-              Сегодня
-            </p>
-          </div>
+  .part-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-buttonbackground hover:bg-secondary text-buttonforeground font-heading font-bold py-4 px-12 rounded-lg text-xl transition-colors mb-8 w-full md:w-auto"
-          >
-            ПОЛУЧИТЬ КАРТУ СВОБОДЫ
-          </motion.button>
+  .part-desc {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
 
-          <p className="font-paragraph text-base text-textlight">
-            Гарантия: 14 дней возврата денег, если PDF вам не подошёл
-          </p>
-        </motion.div>
-      </section>
+  .part-items {
+    list-style: none;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-      {/* Section 8: FAQ */}
-      <section id="faq" className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28 bg-primary">
-        <motion.div className="max-w-3xl mx-auto" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">
-            Часто задаваемые вопросы
-          </h2>
+  .part-items li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+  }
 
-          <div className="space-y-4">
-            {[
-              {
-                q: 'Это психотерапия?',
-                a: 'Нет, это самостоятельная работа с инструментами. Психотерапия — в разделе "Личное сопровождение".',
-              },
-              {
-                q: 'За какое время увижу результаты?',
-                a: 'Первые инсайты — в процессе заполнения (1-2 часа). Изменения в поведении — через 2-4 недели практики.',
-              },
-              {
-                q: 'Подойдёт ли мне, если у меня тяжёлая ситуация?',
-                a: 'PDF подходит для работы с паттернами и масками. Если у вас клиническая депрессия, ПТСР, суицидальные мысли — обратитесь к специалисту.',
-              },
-              {
-                q: 'Чем отличается от других курсов?',
-                a: 'Это не курс, а практическое руководство. Вы работаете в своём темпе, без сроков и групповых марафонов.',
-              },
-              {
-                q: 'Что если я не закончу за 30 дней?',
-                a: 'Нет никаких сроков. Это ваш личный процесс. 30 дней — рекомендуемый минимум для первых результатов.',
-              },
-              {
-                q: 'Можно ли вернуть деньги?',
-                a: 'Да, 14 дней безусловного возврата. Если PDF вам не подошёл — полный возврат без вопросов.',
-              },
-              {
-                q: 'Как проходят сессии в "Личном сопровождении"?',
-                a: 'Онлайн или офлайн, в зависимости от вашего выбора. Еженедельные встречи 60-90 минут. Между сессиями — чат-поддержка.',
-              },
-            ].map((faq, idx) => (
-              <motion.div
-                key={idx}
-                className="bg-background border border-bordersubtle rounded-lg overflow-hidden"
-                {...fadeInUp}
-              >
-                <button
-                  onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                  className="w-full flex items-center justify-between p-6 hover:bg-primary transition-colors"
-                >
-                  <h3 className="font-heading text-lg font-bold text-foreground text-left">
-                    {faq.q}
-                  </h3>
-                  {expandedFaq === idx ? (
-                    <ChevronUp className="w-5 h-5 text-secondary flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-secondary flex-shrink-0" />
-                  )}
-                </button>
+  .part-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+  }
 
-                {expandedFaq === idx && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="px-6 pb-6 border-t border-bordersubtle"
-                  >
-                    <p className="font-paragraph text-textlight">{faq.a}</p>
-                  </motion.div>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+  /* ── HONEST BLOCK ── */
+  .honest-block {
+    background: var(--warm);
+    border-left: 3px solid var(--gold);
+    padding: 32px 36px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 60px;
+  }
 
-      {/* Final CTA */}
-      <section className="w-full max-w-[120rem] mx-auto px-6 py-20 md:py-28">
-        <motion.div className="max-w-2xl mx-auto text-center" {...fadeInUp}>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-8">
-            Готовы начать?
-          </h2>
-          <p className="font-paragraph text-lg text-textlight mb-12">
-            Ваш путь к себе начинается с одного клика
-          </p>
+  .honest-block p {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.8;
+  }
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-buttonbackground hover:bg-secondary text-buttonforeground font-heading font-bold py-4 px-12 rounded-lg text-xl transition-colors"
-          >
-            ПОЛУЧИТЬ КАРТУ СВОБОДЫ
-          </motion.button>
-        </motion.div>
-      </section>
+  .honest-block strong { color: var(--gold); font-weight: 600; }
+
+  /* ── PATHS ── */
+  .paths-section {
+    padding: 80px 24px 100px;
+    background: var(--deep);
+    position: relative;
+  }
+
+  .paths-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .paths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+    background: #1e1c16;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 50px;
+  }
+
+  .path-card {
+    background: var(--deep);
+    padding: 36px 28px;
+    position: relative;
+  }
+
+  .path-card.featured {
+    background: linear-gradient(135deg, #1e1c15 0%, #252012 100%);
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .path-badge {
+    position: absolute;
+    top: -1px; right: 24px;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .path-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .path-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .path-price {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+
+  .path-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .path-list li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .path-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 12px;
+  }
+
+  .path-list li.no::before { content: '✗'; color: var(--red); }
+
+  /* ── BONUSES ── */
+  .bonuses-section {
+    padding: 100px 24px;
+    max-width: 840px;
+    margin: 0 auto;
+  }
+
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .bonus-card {
+    background: var(--deep);
+    border: 1px solid #2a2620;
+    border-radius: 4px;
+    padding: 28px 24px;
+    transition: border-color 0.3s ease;
+  }
+
+  .bonus-card:hover { border-color: rgba(201,168,76,0.3); }
+
+  .bonus-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+  .bonus-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .bonus-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.6; }
+  .bonus-value { font-size: 12px; color: var(--gold); font-weight: 700; margin-top: 12px; }
+
+  /* ── AUTHOR ── */
+  .author-section {
+    padding: 100px 24px;
+    background: var(--deep);
+  }
+
+  .author-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .author-photo {
+    width: 200px; height: 200px;
+    border-radius: 4px;
+    background: var(--warm);
+    border: 1px solid #3a3428;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .author-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 100%);
+  }
+
+  .author-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 6px;
+  }
+
+  .author-title {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .author-bio {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  .author-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid #2a2620;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 4px;
+  }
+
+  /* ── REVIEWS ── */
+  .reviews-section {
+    padding: 100px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+  }
+
+  .review-card {
+    background: var(--deep);
+    border: 1px solid #2a2620;
+    border-radius: 4px;
+    padding: 28px 24px;
+    position: relative;
+  }
+
+  .review-quote {
+    font-size: 60px;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.3;
+    font-family: 'Playfair Display', serif;
+    position: absolute;
+    top: 16px; left: 20px;
+  }
+
+  .review-text {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-top: 24px;
+    font-style: italic;
+  }
+
+  .review-author {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #2a2620;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .review-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .review-name { font-size: 14px; font-weight: 600; }
+  .review-meta { font-size: 12px; color: var(--muted); }
+
+  .stars { color: var(--gold); font-size: 13px; margin-bottom: 6px; }
+
+  /* ── PRICE CTA ── */
+  .cta-section {
+    padding: 100px 24px 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, #1e1c12 0%, var(--dark) 70%);
+  }
+
+  .cta-section h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+
+  .cta-sub {
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 480px;
+    margin-bottom: 48px;
+    line-height: 1.8;
+  }
+
+  .price-box {
+    background: var(--deep);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 44px 60px;
+    margin-bottom: 32px;
+    min-width: 360px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .price-old {
+    font-size: 16px;
+    color: var(--muted);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+
+  .price-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    color: var(--gold);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .price-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .cta-btn {
+    display: block;
+    width: 100%;
+    padding: 18px 32px;
+    background: var(--gold);
+    color: var(--dark);
+    font-family: 'Mulish', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.4);
+  }
+
+  .cta-guarantee {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .cta-guarantee::before { content: '🔒'; font-size: 12px; }
+
+  .price-includes {
+    list-style: none;
+    margin: 24px 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+  }
+
+  .price-includes li {
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .price-includes li::before { content: '✓'; color: var(--green); }
+
+  /* ── FAQ ── */
+  .faq-section {
+    padding: 80px 24px 100px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #2a2620;
+  }
+
+  .faq-q {
+    padding: 24px 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    transition: color 0.2s ease;
+  }
+
+  .faq-q:hover { color: var(--gold); }
+
+  .faq-arrow {
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .faq-a.open { max-height: 300px; padding-bottom: 24px; }
+  .faq-item.active .faq-arrow { transform: rotate(45deg); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 24px;
+    border-top: 1px solid #2a2620;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ── STICKY CTA ── */
+  .sticky-cta {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--deep);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: 100;
+  }
+
+  .sticky-cta.visible { transform: translateY(0); }
+
+  .sticky-text { font-size: 14px; color: var(--muted); font-weight: 300; }
+  .sticky-price { font-size: 20px; font-family: 'Playfair Display', serif; color: var(--gold); font-weight: 700; }
+
+  .sticky-btn {
+    padding: 12px 28px;
+    background: var(--gold);
+    color: var(--dark);
+    font-family: 'Mulish', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .sticky-btn:hover { background: var(--gold-light); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .author-inner { grid-template-columns: 1fr; }
+    .author-photo { width: 120px; height: 120px; font-size: 40px; }
+    .author-stats { gap: 24px; }
+    .price-box { min-width: unset; padding: 32px 24px; }
+    .price-main { font-size: 56px; }
+    .sticky-cta { gap: 12px; }
+    .sticky-text { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-eyebrow">Практическое руководство</p>
+  <h1>Карта <em class="italic gold">Свободы</em></h1>
+  <p class="hero-sub">Полное руководство по возвращению к себе — для тех, кто устал жить в маске</p>
+</section>
+
+<!-- ── VSL ── -->
+<section class="vsl-section">
+  <div class="vsl-box">
+    <div class="vsl-placeholder" onclick="this.innerHTML='<iframe width=100% height=100% src=YOUR_VIDEO_URL style=border:none allow=autoplay></iframe>'">
+      <div class="play-btn"></div>
+      <span class="vsl-label">Смотреть историю</span>
+      <span class="vsl-duration">≈ 8 мин</span>
     </div>
-  );
-}
+  </div>
+</section>
+
+<!-- ── PAIN ── -->
+<section class="pain-section">
+  <h2>Узнаёте <span class="italic gold">себя?</span></h2>
+  <ul class="pain-list">
+    <li class="pain-item"><span class="pain-check">✗</span><span class="pain-text">Вы говорите «да», когда внутри кричит «нет»</span></li>
+    <li class="pain-item"><span class="pain-check">✗</span><span class="pain-text">Вы чувствуете хроническую усталость — без медицинских причин</span></li>
+    <li class="pain-item"><span class="pain-check">✗</span><span class="pain-text">Вы не помните, когда последний раз делали что-то только для себя</span></li>
+    <li class="pain-item"><span class="pain-check">✗</span><span class="pain-text">Снаружи «всё хорошо» — но внутри пусто</span></li>
+    <li class="pain-item"><span class="pain-check">✗</span><span class="pain-text">Вы боитесь показать настоящего себя — вдруг не примут</span></li>
+    <li class="pain-item"><span class="pain-check">✗</span><span class="pain-text">Вы живёте «на автомате» — не по своему выбору, а по инерции</span></li>
+  </ul>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ── ABOUT PDF ── -->
+<section class="about-section">
+  <p class="section-label">Что внутри</p>
+  <h2>36 страниц, которые покажут <span class="italic gold">где вы потеряли себя</span></h2>
+  <p class="about-intro">Это не теория и не очередная книга по саморазвитию. Это практическая карта с конкретными инструментами — для тех, кто готов идти.</p>
+
+  <div class="parts-grid">
+    <div class="part-card">
+      <p class="part-num">Часть 1</p>
+      <h3 class="part-title">Диагностика</h3>
+      <p class="part-desc">Найдите свою точку отсчёта</p>
+      <ul class="part-items">
+        <li>Тест «Где вы потеряли себя?» (15 вопросов)</li>
+        <li>4 типа масок: найдите свою</li>
+        <li>Карта симптомов по 5 сферам жизни</li>
+        <li>Калькулятор потерь — реальная цена жизни в маске</li>
+      </ul>
+    </div>
+    <div class="part-card">
+      <p class="part-num">Часть 2</p>
+      <h3 class="part-title">Метод «3 ключа»</h3>
+      <p class="part-desc">Конкретные практики, которые работают</p>
+      <ul class="part-items">
+        <li>Пауза осознанности — техника «90 секунд»</li>
+        <li>Граница «НЕТ» — 5 скриптов для разных ситуаций</li>
+        <li>Дневник «Я vs Маска» — видеть паттерны каждый день</li>
+      </ul>
+    </div>
+    <div class="part-card">
+      <p class="part-num">Часть 3</p>
+      <h3 class="part-title">Истории трансформации</h3>
+      <p class="part-desc">3 реальных пути — 3 реальных результата</p>
+      <ul class="part-items">
+        <li>Анна: маска Спасателя → свобода от вины</li>
+        <li>Денис: маска Героя → доверие и делегирование</li>
+        <li>Елена: маска Невидимки → творческая видимость</li>
+      </ul>
+    </div>
+    <div class="part-card">
+      <p class="part-num">Часть 4–5</p>
+      <h3 class="part-title">Roadmap и выбор пути</h3>
+      <p class="part-desc">Пошаговый план на 30 дней</p>
+      <ul class="part-items">
+        <li>Чёткий план: что делать каждую неделю</li>
+        <li>Где обычно бросают — и как не бросить</li>
+        <li>Три двери: самостоятельно / сессия / сопровождение</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="honest-block">
+    <p>⚠️ <strong>Честно:</strong> Этот PDF не решит всё. Он покажет <strong>карту</strong> — где вы сейчас и куда можно прийти. Но идти придётся вам. И после каждого ключа есть честный разбор — почему <strong>70% застревают</strong> при самостоятельной работе, и что с этим делать.</p>
+  </div>
+</section>
+
+<!-- ── THREE PATHS ── -->
+<section class="paths-section">
+  <div class="paths-inner">
+    <p class="section-label">Три пути</p>
+    <h2>Выберите свой уровень <span class="italic gold">глубины</span></h2>
+    <div class="paths-grid">
+      <div class="path-card">
+        <span class="path-icon">📄</span>
+        <h3 class="path-name">Самостоятельная работа</h3>
+        <p class="path-price">2,700 ₽ ($27)</p>
+        <ul class="path-list">
+          <li>PDF-руководство (36 стр)</li>
+          <li>Тест, инструменты, roadmap</li>
+          <li class="no">Нет поддержки</li>
+          <li class="no">70% бросают</li>
+        </ul>
+      </div>
+      <div class="path-card featured">
+        <span class="path-badge">Популярно</span>
+        <span class="path-icon">🎯</span>
+        <h3 class="path-name">Пробная сессия</h3>
+        <p class="path-price">8,000 ₽ ($85)</p>
+        <ul class="path-list">
+          <li>PDF + 90 мин персональной работы</li>
+          <li>Диагностика именно вашей маски</li>
+          <li>Персональный план на 30 дней</li>
+          <li>Чат-поддержка 30 дней</li>
+          <li>Засчитывается в сопровождение</li>
+        </ul>
+      </div>
+      <div class="path-card">
+        <span class="path-icon">💎</span>
+        <h3 class="path-name">Личное сопровождение</h3>
+        <p class="path-price">от 240,000 ₽</p>
+        <ul class="path-list">
+          <li>6–12 месяцев работы 1-на-1</li>
+          <li>Работа с корнями травм</li>
+          <li>Трансформация всех сфер жизни</li>
+          <li>90% держат результат</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BONUSES ── -->
+<section class="bonuses-section">
+  <p class="section-label">Бонусы</p>
+  <h2>При заказе в течение <span class="italic gold">7 дней</span></h2>
+  <div class="bonus-grid">
+    <div class="bonus-card">
+      <span class="bonus-icon">📋</span>
+      <h4 class="bonus-title">Гайд «5 телесных практик»</h4>
+      <p class="bonus-desc">Практики для снятия маски через тело. PDF, 15 страниц</p>
+      <p class="bonus-value">Бесплатно при покупке</p>
+    </div>
+    <div class="bonus-card">
+      <span class="bonus-icon">🎧</span>
+      <h4 class="bonus-title">Медитация «Возвращение к себе»</h4>
+      <p class="bonus-desc">Аудио-медитация для встречи с настоящим собой. 20 минут</p>
+      <p class="bonus-value">Бесплатно при покупке</p>
+    </div>
+    <div class="bonus-card">
+      <span class="bonus-icon">✅</span>
+      <h4 class="bonus-title">Чек-лист «10 признаков»</h4>
+      <p class="bonus-desc">Быстрая проверка: живёте вы собой или в маске прямо сейчас</p>
+      <p class="bonus-value">Бесплатно при покупке</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUTHOR ── -->
+<section class="author-section">
+  <div class="author-inner">
+    <div class="author-photo">👤</div>
+    <div>
+      <p class="section-label">Автор</p>
+      <h2 class="author-name">[Ваше имя]</h2>
+      <p class="author-title">[Психолог / Коуч / Специалист]</p>
+      <p class="author-bio">Я прошёл этот путь сам. Развод, увольнение, потеря себя — и долгий путь обратно. Сегодня я помогаю людям не ждать «дна», а начинать возвращение к себе осознанно — раньше, чем станет невыносимо.</p>
+      <div class="author-stats">
+        <div><p class="stat-num">500+</p><p class="stat-label">клиентов</p></div>
+        <div><p class="stat-num">10+</p><p class="stat-label">лет опыта</p></div>
+        <div><p class="stat-num">90%</p><p class="stat-label">держат результат</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="reviews-section">
+  <p class="section-label">Отзывы</p>
+  <h2>Что говорят те, кто <span class="italic gold">уже прошёл</span></h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <span class="review-quote">"</span>
+      <p class="stars">★★★★★</p>
+      <p class="review-text">Я прочитала PDF за один вечер и не могла остановиться. Калькулятор потерь просто убил — я потеряла 20 часов в неделю на «не своё». Это же целый рабочий год!</p>
+      <div class="review-author">
+        <div class="review-avatar">А</div>
+        <div><p class="review-name">Анна, 37 лет</p><p class="review-meta">Маска «Спасатель»</p></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <span class="review-quote">"</span>
+      <p class="stars">★★★★★</p>
+      <p class="review-text">Техника «90 секунд» изменила мои отношения с женой. Я просто стал останавливаться перед тем как срываться. Звучит банально — но работает.</p>
+      <div class="review-author">
+        <div class="review-avatar">Д</div>
+        <div><p class="review-name">Денис, 44 года</p><p class="review-meta">Маска «Герой»</p></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <span class="review-quote">"</span>
+      <p class="stars">★★★★★</p>
+      <p class="review-text">Впервые в жизни я назвала своё состояние правильно — маска Невидимки. И сразу стало понятно, почему я боюсь показывать свои работы. Это был переломный момент.</p>
+      <div class="review-author">
+        <div class="review-avatar">Е</div>
+        <div><p class="review-name">Елена, 29 лет</p><p class="review-meta">Маска «Невидимка»</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" id="buy">
+  <h2>Начните возвращаться <span class="italic gold">к себе</span></h2>
+  <p class="cta-sub">Вы уже знаете, что что-то нужно менять. Вопрос только в том — начнёте сегодня или будете ждать дна.</p>
+  <div class="price-box">
+    <p class="price-old">4,500 ₽</p>
+    <p class="price-main">2,700<span style="font-size:32px">₽</span></p>
+    <p class="price-note">≈ $27 · Мгновенный доступ · PDF + 3 бонуса</p>
+    <ul class="price-includes">
+      <li>«Карта Свободы» — полное руководство (36 стр)</li>
+      <li>Гайд «5 телесных практик»</li>
+      <li>Медитация «Возвращение к себе» (20 мин)</li>
+      <li>Чек-лист «10 признаков жизни в маске»</li>
+    </ul>
+    <a href="#" class="cta-btn">Получить карту свободы →</a>
+    <p class="cta-guarantee">Гарантия возврата 14 дней — без вопросов</p>
+  </div>
+  <p style="font-size:13px; color:var(--muted); max-width:420px; line-height:1.7">Промокод SVOBODA при бронировании сессии или заявке на сопровождение в течение 7 дней после покупки</p>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq-section">
+  <p class="section-label">Вопросы</p>
+  <h2>Часто <span class="italic gold">спрашивают</span></h2>
+  <div style="margin-top:40px">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Это психотерапия?<span class="faq-arrow">+</span></div>
+      <div class="faq-a">Нет. Это практическое руководство для самостоятельной работы. Психотерапия и глубинная работа — в разделе «Личное сопровождение».</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">За какое время увижу результаты?<span class="faq-arrow">+</span></div>
+      <div class="faq-a">Первые инсайты — в процессе заполнения (1-2 часа). Изменения в поведении — через 2-4 недели честной практики. Устойчивые изменения — через 30 дней по roadmap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Подойдёт ли мне, если ситуация тяжёлая?<span class="faq-arrow">+</span></div>
+      <div class="faq-a">PDF работает с паттернами и масками. Если у вас клиническая депрессия, ПТСР или суицидальные мысли — пожалуйста, обратитесь к специалисту напрямую.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Как получить PDF после оплаты?<span class="faq-arrow">+</span></div>
+      <div class="faq-a">Мгновенно — ссылка придёт на email сразу после оплаты. Также PDF будет в личном кабинете (если используется платформа с кабинетом).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Что если PDF мне не подойдёт?<span class="faq-arrow">+</span></div>
+      <div class="faq-a">14 дней гарантия возврата. Напишите — верну деньги без вопросов.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p class="footer-logo">Карта Свободы</p>
+  <p class="footer-copy">© [Ваше имя], 2026 · Все права защищены · <a href="#" style="color:var(--muted)">Политика конфиденциальности</a></p>
+</footer>
+
+<!-- ── STICKY CTA ── -->
+<div class="sticky-cta" id="stickyCta">
+  <span class="sticky-text">«Карта Свободы» + 3 бонуса</span>
+  <span class="sticky-price">2,700 ₽</span>
+  <a href="#buy" class="sticky-btn">Получить →</a>
+</div>
+
+<script>
+  // Scroll animations for pain items
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pain-item').forEach(el => observer.observe(el));
+
+  // Sticky CTA
+  const stickyCta = document.getElementById('stickyCta');
+  window.addEventListener('scroll', () => {
+    stickyCta.classList.toggle('visible', window.scrollY > 600);
+  });
+
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      item.classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>
