@@ -1,25 +1,10 @@
 import { Image } from '@/components/ui/image';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function FreedomMapLanding() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [timeLeft, setTimeLeft] = useState({ hours: 47, minutes: 59, seconds: 59 });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        return prev;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const pad = (n: number) => String(n).padStart(2, '0');
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -49,7 +34,7 @@ export default function FreedomMapLanding() {
           <div className="inline-flex items-center gap-2 bg-primary border border-bordersubtle rounded-full px-5 py-2 mb-8">
             <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
             <p className="font-paragraph text-xs font-bold uppercase tracking-wider text-secondary">
-              Бонусы доступны ещё: {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
+              🎁 Бонусы включены при заказе сегодня
             </p>
           </div>
 
@@ -295,7 +280,7 @@ export default function FreedomMapLanding() {
             При заказе сегодня
           </h2>
           <p className="font-paragraph text-sm text-textlight text-center mb-10 opacity-60">
-            Бонусы доступны ещё {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
+            Промокод SVOBODA при бронировании сессии в течение 7 дней
           </p>
 
           <div className="grid md:grid-cols-3 gap-4">
