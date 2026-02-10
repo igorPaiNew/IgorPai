@@ -3,8 +3,6 @@ import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-rou
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import HomePage from '@/components/pages/HomePage';
-import ProductLandingPage from '@/components/pages/ProductLandingPage';
-import FreedomMapLanding from '@/components/pages/FreedomMapLanding';
 import { WixServicesProvider, rootRouteLoader, MiniCart } from '@/wix-verticals/react-pages/react-router/routes/root';
 import { ProductDetailsRoute, productRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/product-details';
 import { StoreCollectionRoute, storeCollectionRouteLoader } from '@/wix-verticals/react-pages/react-router/routes/store-collection';
@@ -61,26 +59,6 @@ const router = createBrowserRouter([
         routeMetadata: {
           pageIdentifier: 'home',
         },
-      },
-      {
-        path: "product",
-        element: <ProductLandingPage />,
-        routeMetadata: {
-          pageIdentifier: 'product',
-        },
-      },
-      {
-        path: "freedom-map",
-        element: <MinimalLayout />,
-        children: [
-          {
-            index: true,
-            element: <FreedomMapLanding />,
-            routeMetadata: {
-              pageIdentifier: 'freedom-map',
-            },
-          },
-        ],
       },
       {
         path: '/products/:slug',
