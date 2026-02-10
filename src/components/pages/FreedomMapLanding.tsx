@@ -430,5 +430,6 @@ export default function FreedomMapLanding() {
   //     </section>
 
   //   </div>
-  );
+  // );
+  return null;
 }
