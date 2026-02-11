@@ -109,18 +109,18 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: '/freedom',
-        element: <FreedomLayout />,
-        children: [
-          {
-            index: true,
-            element: <FreedomPage />,
-          },
-        ],
-      },
-      {
         path: "*",
         element: <Navigate to="/" replace />,
+      },
+    ],
+  },
+  {
+    path: '/freedom',
+    element: <FreedomLayout />,
+    children: [
+      {
+        index: true,
+        element: <FreedomPage />,
       },
     ],
   },
