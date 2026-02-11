@@ -1,10 +1,17 @@
-import { Image } from '@/components/ui/image';
 import { motion } from 'framer-motion';
-import { Check, ChevronDown, Star, X } from 'lucide-react';
-import { useState } from 'react';
+import { Star, Check, X, ChevronDown } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function FreedomPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [showSticky, setShowSticky] = useState(false);
+
+  // CHANGE: sticky bar — show after scrolling past hero
+  useEffect(() => {
+    const handleScroll = () => setShowSticky(window.scrollY > 700);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -38,6 +45,29 @@ export default function FreedomPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+
+      {/* ── STICKY CTA BAR — NEW: appears after scrolling past hero ── */}
+      <motion.div
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: showSticky ? 0 : -100, opacity: showSticky ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-bordersubtle px-4 py-3 flex items-center justify-between gap-4"
+      >
+        <div className="flex items-center gap-3">
+          <p className="font-heading font-bold text-foreground hidden sm:block">Карта Свободы</p>
+          <div className="flex items-center gap-2">
+            <p className="text-textlight line-through text-sm">4,500 ₽</p>
+            <p className="font-heading font-bold text-secondary text-lg">2,700 ₽</p>
+          </div>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className="bg-secondary text-primary font-heading font-bold py-2 px-5 rounded-lg text-sm hover:bg-secondary/90 transition-colors flex-shrink-0"
+        >
+          ПОЛУЧИТЬ →
+        </motion.button>
+      </motion.div>
 
       {/* ── HERO ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 md:py-32">
@@ -83,29 +113,35 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* ── VSL PLACEHOLDER ── CHANGE 1: replaced Rick Roll iframe with clean placeholder */}
-      <section className="w-full max-w-[120rem] mx-auto px-4 pb-8">
+      {/* ── VSL — CHANGE: 9:16 portrait ratio, centered, no floating "500+" text ── */}
+      <section className="w-full max-w-[120rem] mx-auto px-4 pb-8 flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative w-full aspect-video bg-bordersubtle/20 border-2 border-dashed border-bordersubtle rounded-lg overflow-hidden flex flex-col items-center justify-center gap-4"
+          className="w-full max-w-sm"
         >
-          {/* ↓↓↓ REPLACE THIS BLOCK with your real <iframe> embed ↓↓↓ */}
-          <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center">
-            <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[18px] border-transparent border-l-secondary ml-1" />
+          {/* 9:16 ratio container — matches vertical/Reels video format */}
+          <div
+            className="relative w-full bg-bordersubtle/20 border-2 border-dashed border-bordersubtle rounded-2xl overflow-hidden flex flex-col items-center justify-center gap-4"
+            style={{ aspectRatio: '9 / 16' }}
+          >
+            {/* ↓↓↓ REPLACE THIS BLOCK with your <iframe> or <video> embed ↓↓↓ */}
+            <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center">
+              <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[18px] border-transparent border-l-secondary ml-1" />
+            </div>
+            <p className="font-paragraph text-xs tracking-widest uppercase text-textlight opacity-50 px-6 text-center">
+              Вставьте ваше видео сюда
+            </p>
+            {/* ↑↑↑ END REPLACE ↑↑↑ */}
           </div>
-          <p className="font-paragraph text-xs tracking-widest uppercase text-textlight opacity-50">
-            Вставьте ваше видео сюда · ≈ 8 мин
-          </p>
-          {/* ↑↑↑ END REPLACE ↑↑↑ */}
         </motion.div>
 
-        {/* Single review directly under VSL */}
+        {/* Single review under VSL */}
         <motion.div
           {...fadeInUp}
-          className="mt-4 bg-bordersubtle/30 border border-bordersubtle rounded-lg px-6 py-4 flex items-start gap-4 max-w-3xl mx-auto"
+          className="mt-5 bg-bordersubtle/30 border border-bordersubtle rounded-lg px-6 py-4 flex items-start gap-4 w-full max-w-sm"
         >
           <div className="w-9 h-9 rounded-full bg-secondary/20 border border-secondary/40 flex items-center justify-center font-heading font-bold text-secondary text-sm flex-shrink-0">
             А
@@ -122,7 +158,7 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* ── PAIN — CHANGE 2: single column + X icon instead of Check ── */}
+      {/* ── PAIN — CHANGE: X icon + single column ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="mb-10">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
@@ -131,7 +167,7 @@ export default function FreedomPage() {
           <p className="text-textlight text-lg">Если хотя бы 3 пункта про вас — эта карта для вас</p>
         </motion.div>
 
-        {/* CHANGED: was grid md:grid-cols-2, now single column max-w-2xl for mobile readability */}
+        {/* CHANGE: single column, X icon — pain must feel like pain */}
         <div className="flex flex-col gap-3 max-w-2xl">
           {[
             'Говоришь «да», когда внутри кричит «нет»',
@@ -151,7 +187,6 @@ export default function FreedomPage() {
               viewport={{ once: true }}
               className="flex items-center gap-4 p-4 rounded-lg bg-bordersubtle/20 border border-bordersubtle/50"
             >
-              {/* CHANGED: was Check in gold circle, now X in red — pain points should feel negative */}
               <X size={16} className="text-destructive flex-shrink-0" />
               <p className="font-paragraph text-base md:text-lg">{item}</p>
             </motion.div>
@@ -207,7 +242,7 @@ export default function FreedomPage() {
         </div>
       </section>
 
-      {/* ── WHAT'S INSIDE ── unchanged ── */}
+      {/* ── WHAT'S INSIDE ── unchanged except ⚠️ → ⚡ ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="mb-12">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Что внутри</h2>
@@ -217,36 +252,13 @@ export default function FreedomPage() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {[
-            {
-              icon: '📍',
-              title: 'Диагностика',
-              description: 'Тест 15 вопросов + 4 типа масок + калькулятор реальных потерь (время, деньги, здоровье)',
-            },
-            {
-              icon: '🔑',
-              title: 'Метод «3 ключа»',
-              description: 'Пауза осознанности, граница «НЕТ» с 5 скриптами, дневник «Я vs Маска» — всё с шаблонами',
-            },
-            {
-              icon: '📖',
-              title: 'Истории трансформации',
-              description: '3 реальных истории через 3 пути. Анна, Денис, Елена — узнай себя и выбери свой путь',
-            },
-            {
-              icon: '🗺',
-              title: 'Roadmap 30 дней',
-              description: 'Пошаговый план: что делать каждую неделю и где обычно бросают',
-            },
-            {
-              icon: '🚪',
-              title: 'Три двери выбора',
-              description: 'После 30 дней — чёткие варианты: соло, пробная сессия, или глубокое сопровождение',
-            },
-            {
-              icon: '⚠️',
-              title: 'Честный разбор',
-              description: 'PDF не решит всё. Он покажет карту — где вы сейчас и куда можно прийти. После каждого ключа — честный разбор почему 70% застревают без поддержки.',
-            },
+            { icon: '📍', title: 'Диагностика', description: 'Тест 15 вопросов + 4 типа масок + калькулятор реальных потерь (время, деньги, здоровье)' },
+            { icon: '🔑', title: 'Метод «3 ключа»', description: 'Пауза осознанности, граница «НЕТ» с 5 скриптами, дневник «Я vs Маска» — всё с шаблонами' },
+            { icon: '📖', title: 'Истории трансформации', description: '3 реальных истории через 3 пути. Анна, Денис, Елена — узнай себя и выбери свой путь' },
+            { icon: '🗺️', title: 'Roadmap 30 дней', description: 'Пошаговый план: что делать каждую неделю и где обычно бросают' },
+            { icon: '🚪', title: 'Три двери выбора', description: 'После 30 дней — чёткие варианты: соло, пробная сессия, или глубокое сопровождение' },
+            // CHANGE: ⚠️ → ⚡ (system yellow triangle looked out of place)
+            { icon: '⚡', title: 'Честный разбор', description: 'PDF не решит всё. Он покажет карту — где вы сейчас и куда можно прийти. После каждого ключа — честный разбор почему 70% застревают без поддержки.' },
           ].map((item, idx) => (
             <motion.div
               key={idx}
@@ -274,17 +286,19 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* ── AUTHOR — CHANGE 3: real photo, horizontal layout, removed 📷 placeholder ── */}
+      {/* ── AUTHOR — CHANGE: real photo, horizontal layout ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="max-w-2xl mx-auto">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Автор</h2>
           <p className="text-textlight text-lg mb-10">Кто за этим стоит</p>
 
-          {/* CHANGED: was centered column with emoji, now horizontal with real photo */}
           <div className="bg-bordersubtle/30 border border-bordersubtle rounded-lg p-8 flex flex-col md:flex-row gap-8 items-start">
-            <Image src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png" alt="Автор" className="w-32 h-32 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0" />
+            <img
+              src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png"
+              alt="Автор"
+              className="w-32 h-32 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0"
+            />
             <div className="flex-1 text-center md:text-left">
-              {/* ↓ Replace with your real name and title */}
               <p className="font-heading text-xl font-bold mb-1">[Ваше имя]</p>
               <p className="text-secondary font-heading font-semibold text-sm uppercase tracking-widest mb-5">[Психолог / Коуч]</p>
               <p className="font-paragraph text-base text-textlight leading-relaxed mb-6">
@@ -307,7 +321,7 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* ── BONUSES ── unchanged except promokod block ── */}
+      {/* ── BONUSES — CHANGE: replaced mismatched system emojis with gold unicode symbols ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="mb-12">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Бонусы</h2>
@@ -316,24 +330,9 @@ export default function FreedomPage() {
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {[
-            {
-              icon: '📋',
-              title: 'Гайд «5 телесных практик»',
-              description: 'PDF, 15 страниц. Практики снятия маски через тело.',
-              price: 'Бесплатно',
-            },
-            {
-              icon: '🎧',
-              title: 'Медитация «Возвращение к себе»',
-              description: 'Аудио 20 минут. Встреча с настоящим собой.',
-              price: 'Бесплатно',
-            },
-            {
-              icon: '✅',
-              title: 'Чек-лист «10 признаков»',
-              description: 'Быстрая проверка: живёте вы собой или в маске.',
-              price: 'Бесплатно',
-            },
+            { symbol: '✦', title: 'Гайд «5 телесных практик»', description: 'PDF, 15 страниц. Практики снятия маски через тело.' },
+            { symbol: '◉', title: 'Медитация «Возвращение к себе»', description: 'Аудио 20 минут. Встреча с настоящим собой.' },
+            { symbol: '◈', title: 'Чек-лист «10 признаков»', description: 'Быстрая проверка: живёте вы собой или в маске.' },
           ].map((bonus, idx) => (
             <motion.div
               key={idx}
@@ -343,17 +342,17 @@ export default function FreedomPage() {
               viewport={{ once: true }}
               className="bg-bordersubtle/20 border border-bordersubtle rounded-lg p-8 text-center"
             >
-              <p className="text-5xl mb-4">{bonus.icon}</p>
+              <p className="text-5xl mb-4 text-secondary font-heading font-bold leading-none">{bonus.symbol}</p>
               <h3 className="font-heading text-lg font-bold mb-3 text-secondary">{bonus.title}</h3>
               <p className="font-paragraph text-textlight mb-4">{bonus.description}</p>
-              <p className="font-heading font-bold text-secondary">{bonus.price}</p>
+              <p className="font-heading font-bold text-secondary text-sm uppercase tracking-wide">Бесплатно</p>
             </motion.div>
           ))}
         </div>
 
-        {/* CHANGE 4: promokod block — added explanation where/how to use it */}
+        {/* CHANGE: promokod — added explanation where/how to use */}
         <motion.div {...fadeInUp} className="bg-secondary/10 border border-secondary/30 rounded-lg p-6 flex flex-col md:flex-row items-start md:items-center gap-4 max-w-2xl">
-          <p className="text-3xl flex-shrink-0">🎁</p>
+          <p className="text-secondary font-heading font-bold text-2xl flex-shrink-0">✦</p>
           <div>
             <p className="font-heading font-bold text-base mb-1">
               Промокод <span className="text-secondary">SVOBODA</span>
@@ -407,7 +406,7 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* ── NOT FOR YOU — CHANGE 5: moved from after FAQ to here, before FAQ ── */}
+      {/* ── NOT FOR YOU — CHANGE: before FAQ (was after) ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-12 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="max-w-2xl mx-auto">
           <h2 className="font-heading text-2xl font-bold mb-6 text-textlight opacity-70">
@@ -476,7 +475,7 @@ export default function FreedomPage() {
         </div>
       </section>
 
-      {/* ── FINAL CTA ── unchanged ── */}
+      {/* ── FINAL CTA — CHANGE: cleaner button text ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-8">
@@ -491,12 +490,13 @@ export default function FreedomPage() {
             Тот голос внутри, который говорит «хватит, пора домой» — не игнорируй его.
           </p>
 
+          {/* CHANGE: was "НАЧАТЬ СЕГОДНЯ – 2,700 ₽ →" with ugly dash, now consistent */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-secondary text-primary font-heading font-bold py-4 px-8 rounded-lg text-lg hover:bg-secondary/90 transition-colors mb-6"
           >
-            НАЧАТЬ СЕГОДНЯ — 2,700 ₽ →
+            ПОЛУЧИТЬ КАРТУ СВОБОДЫ — 2,700 ₽ →
           </motion.button>
 
           <p className="text-sm text-textlight">
