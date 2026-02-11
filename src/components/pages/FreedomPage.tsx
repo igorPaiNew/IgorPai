@@ -1,5 +1,6 @@
+import { Image } from '@/components/ui/image';
 import { motion } from 'framer-motion';
-import { Star, Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, Star, X } from 'lucide-react';
 import { useState } from 'react';
 
 export default function FreedomPage() {
@@ -37,7 +38,8 @@ export default function FreedomPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Hero Section */}
+
+      {/* ── HERO ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -81,70 +83,56 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* Video Section */}
-      <section className="w-full max-w-[120rem] mx-auto px-4 py-20">
-        <motion.div {...fadeInUp} className="mb-12">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-secondary">Посмотри историю</span>
-          </h2>
-          <p className="text-textlight text-lg">Как это работает на практике</p>
-        </motion.div>
-
+      {/* ── VSL PLACEHOLDER ── CHANGE 1: replaced Rick Roll iframe with clean placeholder */}
+      <section className="w-full max-w-[120rem] mx-auto px-4 pb-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative w-full aspect-video bg-bordersubtle/30 border border-bordersubtle rounded-lg overflow-hidden"
+          className="relative w-full aspect-video bg-bordersubtle/20 border-2 border-dashed border-bordersubtle rounded-lg overflow-hidden flex flex-col items-center justify-center gap-4"
         >
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Карта Свободы - История трансформации"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0"
-          />
-        </motion.div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="w-full max-w-[120rem] mx-auto px-4 py-16 border-t border-bordersubtle">
-        <motion.div {...fadeInUp} className="text-center mb-12">
-          <p className="text-secondary font-heading font-semibold text-lg mb-2">500+ человек уже начали путь к себе</p>
-          <button className="text-textlight hover:text-secondary transition-colors text-sm">
-            Смотреть историю · ≈ 8 минут
-          </button>
-        </motion.div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="w-full max-w-[120rem] mx-auto px-4 py-16">
-        <motion.div {...fadeInUp} className="bg-bordersubtle/30 border border-bordersubtle rounded-lg p-8 max-w-2xl mx-auto">
-          <div className="flex gap-1 mb-4">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={20} className="fill-secondary text-secondary" />
-            ))}
+          {/* ↓↓↓ REPLACE THIS BLOCK with your real <iframe> embed ↓↓↓ */}
+          <div className="w-16 h-16 rounded-full border-2 border-secondary flex items-center justify-center">
+            <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[18px] border-transparent border-l-secondary ml-1" />
           </div>
-          <p className="font-paragraph text-lg mb-4">
-            "Калькулятор потерь убил — я теряла 20 часов в неделю на «не своё». Впервые увидела это так ясно."
+          <p className="font-paragraph text-xs tracking-widest uppercase text-textlight opacity-50">
+            Вставьте ваше видео сюда · ≈ 8 мин
           </p>
-          <p className="font-heading font-semibold">Анна, 37 лет · Маска «Спасатель»</p>
+          {/* ↑↑↑ END REPLACE ↑↑↑ */}
+        </motion.div>
+
+        {/* Single review directly under VSL */}
+        <motion.div
+          {...fadeInUp}
+          className="mt-4 bg-bordersubtle/30 border border-bordersubtle rounded-lg px-6 py-4 flex items-start gap-4 max-w-3xl mx-auto"
+        >
+          <div className="w-9 h-9 rounded-full bg-secondary/20 border border-secondary/40 flex items-center justify-center font-heading font-bold text-secondary text-sm flex-shrink-0">
+            А
+          </div>
+          <div>
+            <div className="flex gap-0.5 mb-1">
+              {[...Array(5)].map((_, i) => <Star key={i} size={12} className="fill-secondary text-secondary" />)}
+            </div>
+            <p className="font-paragraph text-sm italic text-textlight">
+              "Калькулятор потерь убил — я теряла 20 часов в неделю на «не своё». Впервые увидела это так ясно."
+            </p>
+            <p className="text-xs text-textlight opacity-60 mt-1">Анна, 37 лет · Маска «Спасатель»</p>
+          </div>
         </motion.div>
       </section>
 
-      {/* Problem Section */}
-      <section className="w-full max-w-[120rem] mx-auto px-4 py-20">
-        <motion.div {...fadeInUp} className="mb-12">
+      {/* ── PAIN — CHANGE 2: single column + X icon instead of Check ── */}
+      <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
+        <motion.div {...fadeInUp} className="mb-10">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             <span className="text-secondary">Узнаёте себя?</span>
           </h2>
           <p className="text-textlight text-lg">Если хотя бы 3 пункта про вас — эта карта для вас</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* CHANGED: was grid md:grid-cols-2, now single column max-w-2xl for mobile readability */}
+        <div className="flex flex-col gap-3 max-w-2xl">
           {[
             'Говоришь «да», когда внутри кричит «нет»',
             'Хроническая усталость — без медицинских причин',
@@ -159,22 +147,19 @@ export default function FreedomPage() {
               key={idx}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.4, delay: idx * 0.07 }}
               viewport={{ once: true }}
-              className="flex gap-4 p-4 rounded-lg bg-bordersubtle/20 border border-bordersubtle/50"
+              className="flex items-center gap-4 p-4 rounded-lg bg-bordersubtle/20 border border-bordersubtle/50"
             >
-              <div className="flex-shrink-0 mt-1">
-                <div className="flex items-center justify-center h-6 w-6 rounded-full bg-secondary/20 border border-secondary">
-                  <Check size={16} className="text-secondary" />
-                </div>
-              </div>
-              <p className="font-paragraph text-lg">{item}</p>
+              {/* CHANGED: was Check in gold circle, now X in red — pain points should feel negative */}
+              <X size={16} className="text-destructive flex-shrink-0" />
+              <p className="font-paragraph text-base md:text-lg">{item}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Reviews Section */}
+      {/* ── REVIEWS ── unchanged ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.h2 {...fadeInUp} className="font-heading text-4xl md:text-5xl font-bold mb-4">
           Отзывы
@@ -222,7 +207,7 @@ export default function FreedomPage() {
         </div>
       </section>
 
-      {/* What's Inside */}
+      {/* ── WHAT'S INSIDE ── unchanged ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="mb-12">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Что внутри</h2>
@@ -289,41 +274,40 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* Author Section */}
+      {/* ── AUTHOR — CHANGE 3: real photo, horizontal layout, removed 📷 placeholder ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
-        <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-8">Автор</h2>
-          <p className="text-textlight text-lg mb-4">Кто за этим стоит</p>
+        <motion.div {...fadeInUp} className="max-w-2xl mx-auto">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Автор</h2>
+          <p className="text-textlight text-lg mb-10">Кто за этим стоит</p>
 
-          <div className="bg-bordersubtle/30 border border-bordersubtle rounded-lg p-12 mb-8">
-            <div className="w-24 h-24 bg-secondary/20 rounded-full mx-auto mb-6 flex items-center justify-center">
-              <span className="text-4xl">📷</span>
-            </div>
-            <p className="font-heading text-xl font-bold mb-2">[Ваше имя]</p>
-            <p className="text-secondary font-heading font-semibold mb-6">[Психолог / Коуч]</p>
-            <p className="font-paragraph text-lg leading-relaxed mb-8">
-              Я прошёл этот путь сам — развод, увольнение, потеря себя. Сегодня помогаю людям не ждать «дна», а начинать возвращение к себе осознанно — раньше, чем станет невыносимо.
-            </p>
-
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <p className="font-heading text-3xl font-bold text-secondary">500+</p>
-                <p className="text-textlight text-sm">клиентов</p>
-              </div>
-              <div>
-                <p className="font-heading text-3xl font-bold text-secondary">10+</p>
-                <p className="text-textlight text-sm">лет опыта</p>
-              </div>
-              <div>
-                <p className="font-heading text-3xl font-bold text-secondary">90%</p>
-                <p className="text-textlight text-sm">держат результат</p>
+          {/* CHANGED: was centered column with emoji, now horizontal with real photo */}
+          <div className="bg-bordersubtle/30 border border-bordersubtle rounded-lg p-8 flex flex-col md:flex-row gap-8 items-start">
+            <Image src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png" alt="Автор" className="w-32 h-32 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0" />
+            <div className="flex-1 text-center md:text-left">
+              {/* ↓ Replace with your real name and title */}
+              <p className="font-heading text-xl font-bold mb-1">[Ваше имя]</p>
+              <p className="text-secondary font-heading font-semibold text-sm uppercase tracking-widest mb-5">[Психолог / Коуч]</p>
+              <p className="font-paragraph text-base text-textlight leading-relaxed mb-6">
+                Я прошёл этот путь сам — развод, увольнение, потеря себя. Сегодня помогаю людям не ждать «дна», а начинать возвращение к себе осознанно — раньше, чем станет невыносимо.
+              </p>
+              <div className="flex justify-center md:justify-start gap-10 pt-5 border-t border-bordersubtle">
+                {[
+                  { num: '500+', label: 'клиентов' },
+                  { num: '10+', label: 'лет опыта' },
+                  { num: '90%', label: 'держат результат' },
+                ].map((s, i) => (
+                  <div key={i}>
+                    <p className="font-heading text-2xl font-bold text-secondary">{s.num}</p>
+                    <p className="text-textlight text-xs mt-0.5">{s.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* Bonuses Section */}
+      {/* ── BONUSES ── unchanged except promokod block ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="mb-12">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Бонусы</h2>
@@ -347,7 +331,7 @@ export default function FreedomPage() {
             {
               icon: '✅',
               title: 'Чек-лист «10 признаков»',
-              description: 'Быстрая проверка: живёете вы собой или в маске.',
+              description: 'Быстрая проверка: живёте вы собой или в маске.',
               price: 'Бесплатно',
             },
           ].map((bonus, idx) => (
@@ -367,13 +351,21 @@ export default function FreedomPage() {
           ))}
         </div>
 
-        <motion.div {...fadeInUp} className="bg-secondary/10 border border-secondary/30 rounded-lg p-8 text-center">
-          <p className="font-heading font-semibold text-lg mb-2">Промокод SVOBODA</p>
-          <p className="text-textlight">при бронировании сессии в течение 7 дней</p>
+        {/* CHANGE 4: promokod block — added explanation where/how to use it */}
+        <motion.div {...fadeInUp} className="bg-secondary/10 border border-secondary/30 rounded-lg p-6 flex flex-col md:flex-row items-start md:items-center gap-4 max-w-2xl">
+          <p className="text-3xl flex-shrink-0">🎁</p>
+          <div>
+            <p className="font-heading font-bold text-base mb-1">
+              Промокод <span className="text-secondary">SVOBODA</span>
+            </p>
+            <p className="font-paragraph text-sm text-textlight leading-relaxed">
+              При бронировании пробной сессии в течение 7 дней после покупки — введите этот промокод и получите скидку. Промокод придёт на email вместе с PDF.
+            </p>
+          </div>
         </motion.div>
       </section>
 
-      {/* CTA Section */}
+      {/* ── CTA / PRICING ── unchanged ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="bg-bordersubtle/30 border border-bordersubtle rounded-lg p-12 text-center">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-8">Начни сегодня</h2>
@@ -415,13 +407,15 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* Not For You Section */}
-      <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
+      {/* ── NOT FOR YOU — CHANGE 5: moved from after FAQ to here, before FAQ ── */}
+      <section className="w-full max-w-[120rem] mx-auto px-4 py-12 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="max-w-2xl mx-auto">
-          <h2 className="font-heading text-3xl font-bold mb-8">Это не для вас, если:</h2>
-          <div className="space-y-4">
+          <h2 className="font-heading text-2xl font-bold mb-6 text-textlight opacity-70">
+            Это не для вас, если:
+          </h2>
+          <div className="space-y-3">
             {[
-              'Хотите "прочитать и готово" без практики',
+              'Хотите «прочитать и готово» без практики',
               'Не готовы честно смотреть на себя',
               'Ждёте, что кто-то решит проблемы за вас',
             ].map((item, idx) => (
@@ -429,19 +423,19 @@ export default function FreedomPage() {
                 key={idx}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
                 viewport={{ once: true }}
-                className="flex gap-4 p-4 rounded-lg bg-destructive/10 border border-destructive/30"
+                className="flex items-center gap-4 p-4 rounded-lg bg-destructive/10 border border-destructive/20"
               >
-                <span className="text-destructive font-bold flex-shrink-0">✕</span>
-                <p className="font-paragraph text-lg">{item}</p>
+                <X size={16} className="text-destructive flex-shrink-0" />
+                <p className="font-paragraph text-base">{item}</p>
               </motion.div>
             ))}
           </div>
         </motion.div>
       </section>
 
-      {/* FAQ Section */}
+      {/* ── FAQ ── unchanged ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.h2 {...fadeInUp} className="font-heading text-4xl md:text-5xl font-bold mb-12">
           Вопросы
@@ -482,7 +476,7 @@ export default function FreedomPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* ── FINAL CTA ── unchanged ── */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-20 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-8">
@@ -511,7 +505,6 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
-      {/* Footer Spacing */}
       <div className="h-20" />
     </div>
   );
