@@ -110,7 +110,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/freedom',
-        element: <FreedomPage />,
+        element: <FreedomLayout />,
+        children: [
+          {
+            index: true,
+            element: <FreedomPage />,
+          },
+        ],
       },
       {
         path: "*",
