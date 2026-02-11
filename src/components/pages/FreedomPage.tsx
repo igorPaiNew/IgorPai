@@ -81,6 +81,35 @@ export default function FreedomPage() {
         </motion.div>
       </section>
 
+      {/* Video Section */}
+      <section className="w-full max-w-[120rem] mx-auto px-4 py-20">
+        <motion.div {...fadeInUp} className="mb-12">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
+            <span className="text-secondary">Посмотри историю</span>
+          </h2>
+          <p className="text-textlight text-lg">Как это работает на практике</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="relative w-full aspect-video bg-bordersubtle/30 border border-bordersubtle rounded-lg overflow-hidden"
+        >
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Карта Свободы - История трансформации"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0"
+          />
+        </motion.div>
+      </section>
+
       {/* Social Proof */}
       <section className="w-full max-w-[120rem] mx-auto px-4 py-16 border-t border-bordersubtle">
         <motion.div {...fadeInUp} className="text-center mb-12">
