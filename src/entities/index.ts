@@ -4,6 +4,29 @@
  */
 
 /**
+ * Collection ID: Products
+ * Interface for Products
+ */
+export interface Products {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  productName?: string;
+  /** @wixFieldType text */
+  description?: string;
+  /** @wixFieldType number */
+  price?: number;
+  /** @wixFieldType boolean */
+  available?: boolean;
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
+  productImage?: string;
+  /** @wixFieldType date */
+  launchDate?: Date | string;
+}
+
+
+/**
  * Collection ID: accessinstructions
  * Interface for AccessInstructions
  */
