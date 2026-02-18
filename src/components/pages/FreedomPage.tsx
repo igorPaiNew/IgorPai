@@ -1,10 +1,37 @@
 import { motion } from 'framer-motion';
 import { Star, Check, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Image } from '@/components/ui/image';
 
 export default function FreedomPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [showSticky, setShowSticky] = useState(false);
+  const navigate = useNavigate();
+
+  // Handle PayPlus payment
+  const handlePayment = async () => {
+    try {
+      // Initialize PayPlus payment
+      const paymentData = {
+        amount: 1, // $1 payment
+        currency: 'USD',
+        description: 'Карта Свободы - Freedom Map',
+        orderId: `order_${Date.now()}`,
+        returnUrl: `${window.location.origin}/`,
+      };
+
+      // Open PayPlus payment window
+      // PayPlus typically uses a redirect or popup approach
+      const payPlusUrl = `https://payplus.com/payment?amount=${paymentData.amount}&currency=${paymentData.currency}&orderId=${paymentData.orderId}&returnUrl=${encodeURIComponent(paymentData.returnUrl)}`;
+      
+      // For now, simulate successful payment and redirect
+      // In production, you'd integrate with PayPlus API
+      window.location.href = payPlusUrl;
+    } catch (error) {
+      console.error('Payment error:', error);
+    }
+  };
 
   // CHANGE: sticky bar — show after scrolling past hero
   useEffect(() => {
@@ -63,6 +90,7 @@ export default function FreedomPage() {
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
+          onClick={handlePayment}
           className="bg-secondary text-primary font-heading font-bold py-2 px-5 rounded-lg text-sm hover:bg-secondary/90 transition-colors flex-shrink-0"
         >
           ПОЛУЧИТЬ →
@@ -102,6 +130,7 @@ export default function FreedomPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handlePayment}
             className="bg-secondary text-primary font-heading font-bold py-4 px-8 rounded-lg text-lg hover:bg-secondary/90 transition-colors mb-6"
           >
             ПОЛУЧИТЬ КАРТУ СВОБОДЫ →
@@ -279,6 +308,7 @@ export default function FreedomPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handlePayment}
             className="bg-secondary text-primary font-heading font-bold py-4 px-8 rounded-lg text-lg hover:bg-secondary/90 transition-colors"
           >
             ПОЛУЧИТЬ КАРТУ СВОБОДЫ →
@@ -293,11 +323,7 @@ export default function FreedomPage() {
           <p className="text-textlight text-lg mb-10">Кто за этим стоит</p>
 
           <div className="bg-bordersubtle/30 border border-bordersubtle rounded-lg p-8 flex flex-col md:flex-row gap-8 items-start">
-            <img
-              src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png"
-              alt="Автор"
-              className="w-32 h-32 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0"
-            />
+            <Image src="https://static.wixstatic.com/media/3fbe1a_c4bbbadbc9f8424882abd7de1fc77c37~mv2.png" alt="Автор" className="w-32 h-32 rounded-lg object-cover border border-bordersubtle flex-shrink-0 mx-auto md:mx-0" />
             <div className="flex-1 text-center md:text-left">
               <p className="font-heading text-xl font-bold mb-1">[Ваше имя]</p>
               <p className="text-secondary font-heading font-semibold text-sm uppercase tracking-widest mb-5">[Психолог / Коуч]</p>
@@ -395,6 +421,7 @@ export default function FreedomPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handlePayment}
             className="bg-secondary text-primary font-heading font-bold py-4 px-8 rounded-lg text-lg hover:bg-secondary/90 transition-colors mb-6"
           >
             ПОЛУЧИТЬ КАРТУ СВОБОДЫ →
@@ -494,6 +521,7 @@ export default function FreedomPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handlePayment}
             className="bg-secondary text-primary font-heading font-bold py-4 px-8 rounded-lg text-lg hover:bg-secondary/90 transition-colors mb-6"
           >
             ПОЛУЧИТЬ КАРТУ СВОБОДЫ — 2,700 ₽ →
