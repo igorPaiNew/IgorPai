@@ -26,20 +26,20 @@ export const Commerce = CommercePrimitive;
 
 // Commerce Actions Checkout Component
 const commerceCheckoutVariants = cva(
-  'font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed',
+  'font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center',
   {
     variants: {
       variant: {
-        default: 'btn-primary text-content-primary',
-        primary: 'btn-primary text-content-primary',
+        default: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
+        primary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
         secondary:
-          'bg-surface-secondary text-content-primary hover:bg-surface-secondary/90',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/90',
       },
       size: {
-        default: 'py-4 px-6 rounded-xl',
+        default: 'py-4 px-6 rounded-lg',
         sm: 'py-2 px-4 rounded-lg text-sm',
-        lg: 'py-4 px-6 rounded-xl text-lg',
-        xl: 'py-6 px-8 rounded-2xl text-xl',
+        lg: 'py-4 px-6 rounded-lg text-lg',
+        xl: 'py-6 px-8 rounded-lg text-xl',
       },
       width: {
         default: '',
@@ -94,7 +94,7 @@ export interface CommerceCheckoutProps
 export const CommerceActionsCheckout = React.forwardRef<
   React.ElementRef<typeof CommercePrimitive.Actions.Checkout>,
   CommerceCheckoutProps
->(({ variant, size, width, animation, className, ...props }, ref) => {
+>(({ variant, size, width, animation, className, label, children, ...props }, ref) => {
   return (
     <CommercePrimitive.Actions.Checkout
       {...props}
@@ -104,7 +104,7 @@ export const CommerceActionsCheckout = React.forwardRef<
         className
       )}
     >
-      {props.children}
+      {label || children}
     </CommercePrimitive.Actions.Checkout>
   );
 });
