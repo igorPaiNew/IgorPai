@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CheckCircle2, Lock, Truck, AlertCircle } from 'lucide-react';
 import {
+  Cart,
   CartSummary,
   CartLineItems,
   CartLineItemRepeater,
@@ -406,58 +407,60 @@ export default function CheckoutPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="sticky top-6"
             >
-              <Card className="p-6 border border-bordersubtle bg-primary/30 backdrop-blur-sm">
-                <h3 className="text-xl font-heading font-bold text-foreground mb-6">
-                  Order Summary
-                </h3>
+              <Cart>
+                <Card className="p-6 border border-bordersubtle bg-primary/30 backdrop-blur-sm">
+                  <h3 className="text-xl font-heading font-bold text-foreground mb-6">
+                    Order Summary
+                  </h3>
 
-                {/* Cart Items Preview */}
-                <CartLineItems emptyState={EmptyOrderState}>
-                  <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
-                    <CartLineItemRepeater>
-                      <div className="flex gap-3 pb-4 border-b border-bordersubtle last:border-0">
-                        <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-primary/50">
-                          <LineItemImage />
+                  {/* Cart Items Preview */}
+                  <CartLineItems emptyState={EmptyOrderState}>
+                    <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
+                      <CartLineItemRepeater>
+                        <div className="flex gap-3 pb-4 border-b border-bordersubtle last:border-0">
+                          <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-primary/50">
+                            <LineItemImage />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <LineItemTitle className="text-sm font-medium text-foreground truncate" />
+                            <LineItemQuantity steps={1}>
+                              {({ quantity }) => (
+                                <p className="text-xs text-textlight mt-1">Qty: {quantity}</p>
+                              )}
+                            </LineItemQuantity>
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <LineItemTitle className="text-sm font-medium text-foreground truncate" />
-                          <LineItemQuantity steps={1}>
-                            {({ quantity }) => (
-                              <p className="text-xs text-textlight mt-1">Qty: {quantity}</p>
-                            )}
-                          </LineItemQuantity>
-                        </div>
+                      </CartLineItemRepeater>
+                    </div>
+                  </CartLineItems>
+
+                  {/* Pricing Summary */}
+                  <div className="space-y-3 pt-6 border-t border-bordersubtle">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-textlight">Subtotal</span>
+                      <CartTotalsPrice className="text-foreground font-medium" />
+                    </div>
+                    <CartTotalsDiscount label="Discount" className="flex justify-between text-sm" />
+                    <CartTotalsShipping label="Shipping" className="flex justify-between text-sm" />
+                    <CartTotalsTax label="Tax" className="flex justify-between text-sm" />
+
+                    <div className="pt-3 border-t border-bordersubtle">
+                      <div className="flex justify-between items-center">
+                        <span className="font-heading font-bold text-foreground">Total</span>
+                        <CartTotalsTotal className="text-lg font-heading font-bold text-secondary" />
                       </div>
-                    </CartLineItemRepeater>
-                  </div>
-                </CartLineItems>
-
-                {/* Pricing Summary */}
-                <div className="space-y-3 pt-6 border-t border-bordersubtle">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-textlight">Subtotal</span>
-                    <CartTotalsPrice className="text-foreground font-medium" />
-                  </div>
-                  <CartTotalsDiscount label="Discount" className="flex justify-between text-sm" />
-                  <CartTotalsShipping label="Shipping" className="flex justify-between text-sm" />
-                  <CartTotalsTax label="Tax" className="flex justify-between text-sm" />
-
-                  <div className="pt-3 border-t border-bordersubtle">
-                    <div className="flex justify-between items-center">
-                      <span className="font-heading font-bold text-foreground">Total</span>
-                      <CartTotalsTotal className="text-lg font-heading font-bold text-secondary" />
                     </div>
                   </div>
-                </div>
 
-                <CartSummary asChild>
-                  {({ totalItems }) => (
-                    <p className="text-xs text-textlight text-center mt-4">
-                      {totalItems} {totalItems === 1 ? 'item' : 'items'} in order
-                    </p>
-                  )}
-                </CartSummary>
-              </Card>
+                  <CartSummary asChild>
+                    {({ totalItems }) => (
+                      <p className="text-xs text-textlight text-center mt-4">
+                        {totalItems} {totalItems === 1 ? 'item' : 'items'} in order
+                      </p>
+                    )}
+                  </CartSummary>
+                </Card>
+              </Cart>
             </motion.div>
           </div>
         </div>
